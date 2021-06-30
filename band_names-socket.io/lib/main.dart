@@ -2,6 +2,7 @@ import 'package:band_names/pages/home_page.dart';
 import 'package:band_names/pages/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 import 'services/socket_service.dart';
 
@@ -16,16 +17,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>SocketService())
+       ChangeNotifierProvider(
+                create: (_) => SocketService(),
+                lazy: false,
+              ),
       ],
-          child: MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: 'home',
+        initialRoute: 'status',
         routes: {
           'home': (_) => HomePage(),
           'status': (_) => StatusPage(),
         },
       ),
     );
-  } 
+  }
 }

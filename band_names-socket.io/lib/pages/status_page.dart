@@ -7,9 +7,11 @@ class StatusPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final socketService = Provider.of<SocketService>(context);
-    return Container(
-      child: null,
+    final socketService = context.watch<SocketService>();
+    return Scaffold(
+      body: Container(
+        child: Text("Hello Word"),
+      ),
     );
   }
 }
