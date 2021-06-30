@@ -20,6 +20,12 @@
       socket.on("disconnect", function () {
         console.log("Permos a conexao com o servidor");
       });
+
+      socket.emit("broadcast", { name: "Fernando" });
+
+      socket.on("broadcast", function (payload) {
+        console.log("Menagem vindo do servidr", payload);
+      });
     </script>
   </body>
 </html>
