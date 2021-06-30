@@ -8,5 +8,18 @@
   </head>
   <body>
     <h1>Acesso Negado</h1>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      socket.on("connect", function () {
+        console.log("Conectado ao servidor");
+      });
+
+      socket.on("disconnect", function () {
+        console.log("Permos a conexao com o servidor");
+      });
+    </script>
   </body>
 </html>
