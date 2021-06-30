@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
       ),
       body: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: bands.length,
         itemBuilder: (
           context,
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        elevation: 1,
+        elevation: 7,
         onPressed: _addNewBand,
       ),
     );
@@ -48,9 +49,7 @@ class _HomePageState extends State<HomePage> {
   Widget _bandTile(Band band) {
     return Dismissible(
       direction: DismissDirection.endToStart,
-      onDismissed: (direction){
-        
-      },
+      onDismissed: (direction) {},
       background: Container(
         padding: EdgeInsets.only(right: 8.0),
         color: Colors.red,
