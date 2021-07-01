@@ -13,13 +13,20 @@ class LoginScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: "E-mail",
+            ),
           ),
           SizedBox(
             height: 14,
           ),
           TextFormField(
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            obscureText: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: "Password",
+            ),
           ),
           SizedBox(
             height: 14,
