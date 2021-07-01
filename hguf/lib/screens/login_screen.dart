@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ionic/model/user.dart';
+import 'package:ionic/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+
+final LOGIN_SCREEN = "/login_screen";
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -8,6 +11,12 @@ class LoginScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    onSuccess() {
+      Navigator.pushReplacementNamed(context, HOME_SCREEN);
+    }
+
+    onFailed() {}
+
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(20),
@@ -46,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                           child: Text("Entrar"),
                           onPressed: () {
                             formKey.currentState.save();
-                            user.login(userModel);
+                            user.login(userModel, onSuccess, onFailed);
                           },
                         ),
                       ),

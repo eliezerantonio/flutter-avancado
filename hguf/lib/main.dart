@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionic/model/user.dart';
+import 'package:ionic/screens/home_screen.dart';
 import 'package:ionic/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        initialRoute: LOGIN_SCREEN,
+        routes: {
+          HOME_SCREEN: (_) => HomeScreen(),
+          LOGIN_SCREEN: (_) => LoginScreen(),
+        },
       ),
     );
   }

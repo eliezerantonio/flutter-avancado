@@ -27,14 +27,18 @@ class User with ChangeNotifier {
         password = map["password"],
         access = map["access"];
 
-  Future<void> login(User user) async {
-    loading = true;
-    final result = await auth.signInWithEmailAndPassword(
-        email: user.email, password: user.password);
+  Future<void> login(User user, Function onSuccess, Function onFailed) async {
+    try {
+      loading = true;
+      final result = await auth.signInWithEmailAndPassword(
+          email: user.email, password: user.password);
 
-    print(result.user.uid);
+      onSuccess();
 
-    loading = false;
+      loading = false;
+    } catch (e) {
+      onFailed();
+    }
   }
 
   Future<void> save() async {}
