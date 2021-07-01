@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ionic/model/user.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
-
+  LoginScreen({Key key}) : super(key: key);
+  final userModel = User();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +15,7 @@ class LoginScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            onSaved: (email) => userModel.email = email,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "E-mail",
@@ -23,6 +26,7 @@ class LoginScreen extends StatelessWidget {
           ),
           TextFormField(
             obscureText: true,
+            onSaved: (password) => userModel.password = password,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Password",
@@ -31,12 +35,23 @@ class LoginScreen extends StatelessWidget {
           SizedBox(
             height: 14,
           ),
-          Container(
-            height: 44,
-            child: RaisedButton(
-              child: Text("Entrar"),
-              onPressed: () {},
-            ),
+          Consumer<User>(
+            builder: (_, user, __) {
+              return Column(
+                children: [
+                  Container(
+                    height: 44,
+                    child: RaisedButton(
+                      child: Text("Entrar"),
+                      onPressed: () {
+                        user.login(userModel);
+                      },
+                    ),
+                  ),
+                  if (user.loading) CircularProgressIndicator()
+                ],
+              );
+            },
           )
         ],
       ),
