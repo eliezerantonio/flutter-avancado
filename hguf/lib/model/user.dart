@@ -18,7 +18,7 @@ class User with ChangeNotifier {
     notifyListeners();
   }
 
-  Firestore firestore = Firestore.instance;
+  final firestore = Firestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   User.fromMap(Map<String, dynamic> map)
@@ -32,6 +32,13 @@ class User with ChangeNotifier {
       loading = true;
       final result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
+
+      if (result.user != null) {
+        firestore.document("user/${result.user.uid}").setData({
+          'id': result.user.uid,
+          'email': user.email,
+        });
+      }
 
       onSuccess();
 
