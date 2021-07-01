@@ -1,4 +1,6 @@
 class Student {
+
+  
   String name;
   String genre;
   String courseId;
