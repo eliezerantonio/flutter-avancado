@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionic/screens/student_screen.dart';
 
 final HOME_SCREEN = '/home_screen';
 
@@ -9,9 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
-    Container(
-      color: Colors.red,
-    ),
+    StudentScreen(),
     Container(
       color: Colors.blue[100],
     ),
@@ -22,8 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-
-    
     setState(() {
       _selectedIndex = index;
     });
