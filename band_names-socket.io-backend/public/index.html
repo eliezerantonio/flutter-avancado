@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SocketServer</title>
-  </head>
-  <body>
-    <h1>Acesso Negado</h1>
+</head>
+<body>
+    <h1>Acceso denegado</h1>
 
     <script src="socket.io/socket.io.js"></script>
+
     <script>
-      var socket = io();
+        var socket = io();
 
-      socket.on("connect", function () {
-        console.log("Conectado ao servidor");
-      });
+        socket.on('connect', function() {
+            console.log('Conectado al servidor')
+        });
 
-      socket.on("disconnect", function () {
-        console.log("Permos a conexao com o servidor");
-      });
+        socket.on('disconnect', function() {
+            console.log('Perdimos comunicación con el servidor');
+        });
 
-      socket.emit("broadcast", { name: "Fernando" });
 
-      socket.on("broadcast", function (payload) {
-        console.log("Menagem vindo do servidr", payload);
-      });
+        socket.emit('mensaje', { nombre: 'Fernando' } );
+
+        socket.on('nuevo-mensaje', function( payload ){
+            console.log('Escuhando:', payload );
+        });
+
+        socket.on('active-bands', function( bands ){
+            console.clear();
+            console.table( bands );
+        });
+
+
+
+
     </script>
-  </body>
+
+</body>
 </html>
