@@ -5,7 +5,7 @@ const Band = require("../models/band");
 
 const bands = new Bands();
 
-bands.addBand(new Band("Breaking Benjamin"));
+bands.addBand(new Band("One Republi"));
 bands.addBand(new Band("Bon Jovi"));
 bands.addBand(new Band("Héroes del Silencio"));
 bands.addBand(new Band("Metallica"));
