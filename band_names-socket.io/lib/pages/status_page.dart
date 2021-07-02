@@ -10,7 +10,7 @@ class StatusPage extends StatelessWidget {
     final socketService = context.watch<SocketService>();
     return Scaffold(
       body: Container(
-        child: Text("Hello Word"),
+        child: Text("ServerStatus: ${socketService.serverStatus}"),
       ),
     );
   }
