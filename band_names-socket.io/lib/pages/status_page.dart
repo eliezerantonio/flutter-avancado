@@ -12,6 +12,14 @@ class StatusPage extends StatelessWidget {
       body: Container(
         child: Text("ServerStatus: ${socketService.serverStatus}"),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.message),
+        onPressed: () {
+        //emitir :
+       //{nome: 'flutter', message:flutter}
+
+        },
+      ),
     );
   }
 }

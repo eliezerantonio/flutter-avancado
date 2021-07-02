@@ -15,7 +15,7 @@ io.on("connect", (client) => {
   });
 
   client.on("nova-mensagem", (payload) => {
-    io.emit("nova-mensagem", "HEY!!!!!");
+    io.emit(payload);
   });
 });
 
