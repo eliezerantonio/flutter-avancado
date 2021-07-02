@@ -1,7 +1,7 @@
 const { io } = require("../index");
 
 //mesajes scokets
-io.on("connection", (client) => {
+io.on("connect", (client) => {
   console.log("Cliente conectado");
 
   client.on("disconnect", () => {
@@ -12,6 +12,10 @@ io.on("connection", (client) => {
     console.log("Mensagem!!!" + payload.name);
 
     io.emit("broadcast", { admin: "Nova mensagem" });
+  });
+
+  client.on("nova-mensagem", (payload) => {
+    io.emit("nova-mensagem", "HEY!!!!!");
   });
 });
 

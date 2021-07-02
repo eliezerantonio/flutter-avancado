@@ -20,13 +20,12 @@ class SocketService with ChangeNotifier {
   void _initConfig() {
     // Dart client
 
-    this._socket = IO.io('http://172.20.10.4:3000/', {
+    this._socket = IO.io('http://172.20.10.4:3000', {
       'transports': ['websocket'],
       'autoConnect': true
     });
-   
 
-    this._socket.on('connect', (_) {
+    this._socket.on('connection', (_) {
       this._serverStatus = ServerStatus.Online;
       notifyListeners();
     });
@@ -34,6 +33,10 @@ class SocketService with ChangeNotifier {
     this._socket.on('disconnect', (_) {
       this._serverStatus = ServerStatus.Offline;
       notifyListeners();
+    });
+
+    this._socket.on('nova-mensagem', (payload) {
+      print("Nova mensagem $payload");
     });
   }
 }
