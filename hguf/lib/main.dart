@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionic/managers/student_manager.dart';
 import 'package:ionic/model/user.dart';
 import 'package:ionic/screens/home_screen.dart';
 import 'package:ionic/screens/login_screen.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => User(),
         ),
+        ChangeNotifierProvider(create: (_) => StudentManager())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
