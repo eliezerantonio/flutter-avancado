@@ -1,3 +1,4 @@
+import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,12 +10,13 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Color(0xfff2f2f2),
       body: SafeArea(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _Logo(),
-              _Form(),
-              _Labels(),
-            ]),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _Logo(),
+            _Form(),
+            _Labels(),
+          ],
+        ),
       ),
     );
   }
@@ -58,10 +60,11 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 40),
+      padding: EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          TextField(),
-          TextField(),
+          CustomInput(),
           RaisedButton(
             onPressed: () {},
           )
