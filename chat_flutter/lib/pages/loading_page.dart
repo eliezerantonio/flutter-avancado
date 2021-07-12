@@ -5,8 +5,12 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: null,
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
     );
   }
 }
