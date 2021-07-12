@@ -8,9 +8,13 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
       body: SafeArea(
-        child: Column(children: [
-          _Logo(),
-        ]),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _Logo(),
+              _Form(),
+              _Labels(),
+            ]),
       ),
     );
   }
@@ -21,9 +25,10 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 170,
-      child: Center(
+    return Center(
+      child: Container(
+        width: 170,
+        margin: EdgeInsets.only(top: 50),
         child: Column(
           children: [
             Image(
@@ -63,5 +68,43 @@ class __FormState extends State<_Form> {
         ],
       ),
     );
+  }
+}
+
+class _Labels extends StatelessWidget {
+  const _Labels({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Text(
+        "Nao tem conta?",
+        style: TextStyle(
+          color: Colors.black45,
+          fontSize: 15,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Text(
+        "Criar uma agora",
+        style: TextStyle(
+          color: Colors.blue[600],
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Text(
+        "Termos e condicoes de uso",
+        style: TextStyle(
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+    ]);
   }
 }
