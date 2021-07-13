@@ -1,8 +1,8 @@
 class Usuario {
   bool online;
   String email;
-  String nome;
+  String name;
   String uid;
 
-  Usuario({this.online, this.email, this.nome, this.uid});
+  Usuario({this.online, this.email, this.name, this.uid});
 }
