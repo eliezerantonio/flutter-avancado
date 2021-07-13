@@ -21,7 +21,9 @@ class LoginPage extends StatelessWidget {
               children: [
                 Logo(),
                 _Form(),
-                Labels(),
+                Labels(
+                  route: 'register',
+                ),
               ],
             ),
           ),
