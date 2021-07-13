@@ -1,5 +1,6 @@
 import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:chat_flutter/widegts/labela.dart';
+import 'package:chat_flutter/widegts/logo.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -22,8 +23,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
 
 class _Form extends StatefulWidget {
   _Form({Key key}) : super(key: key);
@@ -63,5 +62,3 @@ class __FormState extends State<_Form> {
     );
   }
 }
-
-
