@@ -1,17 +1,14 @@
 import 'package:chat_flutter/pages/models/usuario.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UsuariosPage extends StatelessWidget {
   final usuarios = [
     Usuario(
         uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
-    Usuario(
-        uid: '2',
-        name: 'Goncalves',
-        email: "goncalves@gmail.com",
-        online: false),
     Usuario(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
     Usuario(uid: '4', name: 'Vasco', email: "vasco@gmail.com", online: true),
+    Usuario(uid: '2',name: 'Goncalves',email: "goncalves@gmail.com",online: false),
   ];
 
   @override
