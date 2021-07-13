@@ -41,21 +41,26 @@ class UsuariosPage extends StatelessWidget {
       ),
       body: ListView.separated(
         physics: BouncingScrollPhysics(),
-        itemBuilder: (_, index) => ListTile(
-          title: Text(usuarios[index].name),
-          leading: CircleAvatar(
-            child: Text(usuarios[index].name.substring(0, 2)),
-          ),
-          trailing: Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-                color: usuarios[index].online ? Colors.green : Colors.red,
-                borderRadius: BorderRadius.circular(30)),
-          ),
-        ),
+        itemBuilder: (_, index) => _usuarioListTile(usuarios[index]),
         separatorBuilder: (_, index) => Divider(),
         itemCount: usuarios.length,
+      ),
+    );
+  }
+
+  ListTile _usuarioListTile(Usuario usuario) {
+    return ListTile(
+      title: Text(usuario.name),
+      subtitle: Text(usuario.email),
+      leading: CircleAvatar(
+          child: Text(usuario.name.substring(0, 2)),
+          backgroundColor: Colors.blue[100]),
+      trailing: Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(
+            color: usuario.online ? Colors.green : Colors.red,
+            borderRadius: BorderRadius.circular(30)),
       ),
     );
   }
