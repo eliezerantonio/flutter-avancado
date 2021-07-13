@@ -22,6 +22,8 @@ class LoginPage extends StatelessWidget {
                 Logo(title: "Messenger"),
                 _Form(),
                 Labels(
+                  createAccount: "Nao tem uma conta?",
+                  haveAccount: "Criar Agora",
                   route: 'register',
                 ),
               ],

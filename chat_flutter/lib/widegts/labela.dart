@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Labels extends StatelessWidget {
-  const Labels({Key key, @required this.route}) : super(key: key);
+  const Labels(
+      {Key key, @required this.route, this.haveAccount, this.createAccount})
+      : super(key: key);
   final String route;
+  final String haveAccount;
+  final String createAccount;
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Text(
-        "Nao tem conta?",
+        haveAccount,
         style: TextStyle(
           color: Colors.black45,
           fontSize: 15,
@@ -23,7 +27,7 @@ class Labels extends StatelessWidget {
           Navigator.of(context).pushReplacementNamed(this.route);
         },
         child: Text(
-          "Criar uma agora",
+          createAccount,
           style: TextStyle(
             color: Colors.blue[600],
             fontSize: 18,
