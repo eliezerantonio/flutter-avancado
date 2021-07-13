@@ -73,8 +73,8 @@ class __FormState extends State<_Form> {
             keyboardType: TextInputType.emailAddress,
           ),
           CustomInput(
-            icon: Icons.email_outlined,
-            placeholder: 'Password',
+            icon: Icons.lock_outlined,
+            placeholder: 'password',
             textController: _passwordController,
             keyboardType: TextInputType.emailAddress,
           ),
