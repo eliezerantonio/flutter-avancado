@@ -54,23 +54,7 @@ class __FormState extends State<_Form> {
             textController: _passwordController,
             keyboardType: TextInputType.emailAddress,
           ),
-          RaisedButton(
-            elevation: 2,
-            highlightElevation: 5,
-            color: Colors.blue,
-            shape: StadiumBorder(),
-            onPressed: () {},
-            child: Container(
-              width: double.infinity,
-              height: 45,
-              child: Center(
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-              ),
-            ),
-          )
+          
         ],
       ),
     );
