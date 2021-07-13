@@ -1,3 +1,4 @@
+import 'package:chat_flutter/widegts/custom_button.dart';
 import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:chat_flutter/widegts/labela.dart';
 import 'package:chat_flutter/widegts/logo.dart';
@@ -54,7 +55,7 @@ class __FormState extends State<_Form> {
             textController: _passwordController,
             keyboardType: TextInputType.emailAddress,
           ),
-          
+          CustomButton(onPressed: (){},)
         ],
       ),
     );

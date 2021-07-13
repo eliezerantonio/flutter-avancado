@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({Key key}) : super(key: key);
-
+  const CustomButton({Key key, this.onPressed, this.text}) : super(key: key);
+  final Function onPressed;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -10,13 +11,13 @@ class CustomButton extends StatelessWidget {
       highlightElevation: 5,
       color: Colors.blue,
       shape: StadiumBorder(),
-      onPressed: () {},
+      onPressed: this.onPressed,
       child: Container(
         width: double.infinity,
         height: 45,
         child: Center(
           child: Text(
-            'Entrar',
+            this.text,
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
         ),
