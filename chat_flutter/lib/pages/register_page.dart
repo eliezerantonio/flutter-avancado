@@ -43,6 +43,7 @@ class _Form extends StatefulWidget {
 class __FormState extends State<_Form> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,6 +51,12 @@ class __FormState extends State<_Form> {
       padding: EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
+          CustomInput(
+            icon: Icons.perm_identity,
+            placeholder: 'Nome',
+            textController: _nameController,
+            keyboardType: TextInputType.text,
+          ),
           CustomInput(
             icon: Icons.email_outlined,
             placeholder: 'E-mail',
