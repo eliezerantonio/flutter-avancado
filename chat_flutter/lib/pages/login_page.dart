@@ -55,7 +55,10 @@ class __FormState extends State<_Form> {
             textController: _passwordController,
             keyboardType: TextInputType.emailAddress,
           ),
-          CustomButton(onPressed: (){},)
+          CustomButton(
+            onPressed: () {},
+            text: "Entrar",
+          )
         ],
       ),
     );
