@@ -16,7 +16,7 @@ class Logo extends StatelessWidget {
               image: AssetImage('assets/tag-logo.png'),
             ),
             Text(
-              "Messenger",
+              this.title,
               style: TextStyle(
                 fontSize: 30,
               ),
