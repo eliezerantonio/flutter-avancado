@@ -1,8 +1,18 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({Key key}) : super(key: key);
 
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  final _textController = TextEditingController();
+  final _focusNode = new FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +53,62 @@ class ChatPage extends StatelessWidget {
             height: 1,
           ),
           //TODO:caixa de texto
-          Container(color: Colors.white, height: 100)
+          Container(
+            color: Colors.white,
+            height: 50,
+            child: _InputChat(),
+          ),
         ],
       )),
     );
+  }
+
+  Widget _InputChat() {
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            Flexible(
+              child: TextField(
+                  controller: _textController,
+                  onSubmitted: _handleSubmit,
+                  onChanged: (String texto) {
+                    //TODO: para enviar o valor
+                  },
+                  decoration: InputDecoration.collapsed(
+                    hintText: "Enviar mensagem",
+                  ),
+                  focusNode: _focusNode),
+            ),
+            //botao enviar
+
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              child: Platform.isIOS
+                  ? CupertinoButton(
+                      onPressed: () {},
+                      child: Text("Enviar"),
+                    )
+                  : Container(
+                      margin: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: IconButton(
+                        icon: Icon(Icons.send, color: Colors.blue[400]),
+                        onPressed: () {},
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _handleSubmit(String text) {
+    debugPrint(text);
+
+    _textController.clear();
+
+    _focusNode.requestFocus();
   }
 }
