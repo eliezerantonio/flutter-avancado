@@ -45,6 +45,11 @@ class UsuariosPage extends StatelessWidget {
       ),
       body: SmartRefresher(
         controller: _refreshController,
+        enablePullDown: true,
+        header: WaterDropHeader(
+          complete: Icon(Icons.check, color: Colors.blue[400]),
+          waterDropColor: Colors.blue[400],
+        ),
         child: _listViewUsuarios(),
       ),
     );
