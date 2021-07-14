@@ -29,6 +29,23 @@ class ChatPage extends StatelessWidget {
           ),
           centerTitle: true,
           elevation: 1),
+      body: Container(
+          child: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (_, i) => Text("$i"),
+              reverse: true,
+            ),
+          ),
+          Divider(
+            height: 1,
+          ),
+          //TODO:caixa de texto
+          Container(color: Colors.white, height: 100)
+        ],
+      )),
     );
   }
 }
