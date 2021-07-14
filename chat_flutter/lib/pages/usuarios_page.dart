@@ -1,8 +1,11 @@
 import 'package:chat_flutter/pages/models/usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsuariosPage extends StatelessWidget {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   final usuarios = [
     Usuario(
         uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
@@ -40,12 +43,19 @@ class UsuariosPage extends StatelessWidget {
           )
         ],
       ),
-      body: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (_, index) => _usuarioListTile(usuarios[index]),
-        separatorBuilder: (_, index) => Divider(),
-        itemCount: usuarios.length,
+      body: SmartRefresher(
+        controller: _refreshController,
+        child: _listViewUsuarios(),
       ),
+    );
+  }
+
+  ListView _listViewUsuarios() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (_, index) => _usuarioListTile(usuarios[index]),
+      separatorBuilder: (_, index) => Divider(),
+      itemCount: usuarios.length,
     );
   }
 
