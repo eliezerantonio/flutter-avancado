@@ -24,35 +24,40 @@ class _ChatPageState extends State<ChatPage> {
     ChatMessage(
       texto: "Ola tudo bem  e tu?",
       uid: "132",
-    ), ChatMessage(
+    ),
+    ChatMessage(
       texto: "Ola tudo bem ?",
       uid: "123",
     ),
     ChatMessage(
       texto: "Ola tudo bem  e tu?",
       uid: "132",
-    ), ChatMessage(
+    ),
+    ChatMessage(
       texto: "Ola tudo bem ?",
       uid: "123",
     ),
     ChatMessage(
       texto: "Ola tudo bem  e tu?",
       uid: "132",
-    ), ChatMessage(
+    ),
+    ChatMessage(
       texto: "Ola tudo bem ?",
       uid: "123",
     ),
     ChatMessage(
       texto: "Ola tudo bem  e tu?",
       uid: "132",
-    ), ChatMessage(
+    ),
+    ChatMessage(
       texto: "Ola tudo bem ?",
       uid: "123",
     ),
     ChatMessage(
       texto: "Ola tudo bem  e tu?",
       uid: "132",
-    ), ChatMessage(
+    ),
+    ChatMessage(
       texto: "Ola tudo bem ?",
       uid: "123",
     ),

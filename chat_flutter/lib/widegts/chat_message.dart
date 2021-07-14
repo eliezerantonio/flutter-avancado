@@ -15,20 +15,33 @@ class ChatMessage extends StatelessWidget {
   Widget _myMessage() {
     return Container(
       alignment: Alignment.centerRight,
-      child: Text(this.texto),
-      decoration: BoxDecoration(
-        color: Color(0xff4d9ef6),
+      padding: EdgeInsets.all(
+        8,
       ),
+      margin: EdgeInsets.only(bottom: 7, left: 50, right: 5),
+      child: Text(this.texto,
+          style: TextStyle(
+            color: Colors.white,
+          )),
+      decoration: BoxDecoration(
+          color: Color(0xff4d9ef6), borderRadius: BorderRadius.circular(20)),
     );
   }
 
   Widget _noMyMesssage() {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Text(this.texto),
-      decoration: BoxDecoration(
-        color: Colors.green[200],
+      padding: EdgeInsets.all(
+        8,
       ),
+      margin: EdgeInsets.only(bottom: 7, left: 5, right: 50),
+      child: Text(this.texto,
+          style: TextStyle(
+            color: Colors.white,
+          )),
+      decoration: BoxDecoration(
+          color: Colors.deepPurpleAccent[200],
+          borderRadius: BorderRadius.circular(20)),
     );
   }
 }
