@@ -13,6 +13,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final _textController = TextEditingController();
   final _focusNode = new FocusNode();
+  bool _estaEscrevendo = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +75,15 @@ class _ChatPageState extends State<ChatPage> {
                   controller: _textController,
                   onSubmitted: _handleSubmit,
                   onChanged: (String texto) {
-                    //TODO: para enviar o valor
+                    if (texto.trim().length > 0) {
+                      setState(() {
+                        _estaEscrevendo = false;
+                      });
+                    } else {
+                      setState(() {
+                        _estaEscrevendo = false;
+                      });
+                    }
                   },
                   decoration: InputDecoration.collapsed(
                     hintText: "Enviar mensagem",
@@ -87,14 +96,24 @@ class _ChatPageState extends State<ChatPage> {
               margin: EdgeInsets.symmetric(horizontal: 4.0),
               child: Platform.isIOS
                   ? CupertinoButton(
-                      onPressed: () {},
+                      onPressed: _estaEscrevendo
+                          ?()=> _handleSubmit(_textController.text.trim())
+                          : null,
                       child: Text("Enviar"),
                     )
                   : Container(
                       margin: EdgeInsets.symmetric(horizontal: 4.0),
-                      child: IconButton(
-                        icon: Icon(Icons.send, color: Colors.blue[400]),
-                        onPressed: () {},
+                      child: IconTheme(
+                        data: IconThemeData(color: Colors.blue[100]),
+                        child: IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            icon: Icon(Icons.send),
+                            onPressed: _estaEscrevendo
+                                ? () => _handleSubmit(
+                                      _textController.text.trim(),
+                                    )
+                                : null),
                       ),
                     ),
             ),
@@ -110,5 +129,8 @@ class _ChatPageState extends State<ChatPage> {
     _textController.clear();
 
     _focusNode.requestFocus();
+    setState(() {
+      _estaEscrevendo = false;
+    });
   }
 }
