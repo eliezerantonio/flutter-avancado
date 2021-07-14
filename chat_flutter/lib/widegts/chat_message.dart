@@ -11,12 +11,24 @@ class ChatMessage extends StatelessWidget {
       child: this.uid == "123" ? _myMessage() : _noMyMesssage(),
     );
   }
-}
 
-Widget _myMessage() {
-  return Container();
-}
+  Widget _myMessage() {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: Text(this.texto),
+      decoration: BoxDecoration(
+        color: Color(0xff4d9ef6),
+      ),
+    );
+  }
 
-Widget _noMyMesssage() {
-  return Container();
+  Widget _noMyMesssage() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(this.texto),
+      decoration: BoxDecoration(
+        color: Colors.green[200],
+      ),
+    );
+  }
 }

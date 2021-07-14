@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chat_flutter/widegts/chat_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,52 @@ class _ChatPageState extends State<ChatPage> {
   final _textController = TextEditingController();
   final _focusNode = new FocusNode();
   bool _estaEscrevendo = false;
+
+  List<ChatMessage> _messages = [
+    ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ), ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ), ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ), ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ), ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ), ChatMessage(
+      texto: "Ola tudo bem ?",
+      uid: "123",
+    ),
+    ChatMessage(
+      texto: "Ola tudo bem  e tu?",
+      uid: "132",
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +92,9 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Flexible(
             child: ListView.builder(
+              itemCount: _messages.length,
               physics: BouncingScrollPhysics(),
-              itemBuilder: (_, i) => Text("$i"),
+              itemBuilder: (_, i) => _messages[i],
               reverse: true,
             ),
           ),
