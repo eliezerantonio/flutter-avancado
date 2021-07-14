@@ -46,6 +46,7 @@ class UsuariosPage extends StatelessWidget {
       body: SmartRefresher(
         controller: _refreshController,
         enablePullDown: true,
+        onRefresh: _cargarUsuarios,
         header: WaterDropHeader(
           complete: Icon(Icons.check, color: Colors.blue[400]),
           waterDropColor: Colors.blue[400],
@@ -79,5 +80,10 @@ class UsuariosPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(30)),
       ),
     );
+  }
+
+  void _cargarUsuarios() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
   }
 }
