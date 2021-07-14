@@ -97,7 +97,7 @@ class _ChatPageState extends State<ChatPage> {
               child: Platform.isIOS
                   ? CupertinoButton(
                       onPressed: _estaEscrevendo
-                          ?()=> _handleSubmit(_textController.text.trim())
+                          ? () => _handleSubmit(_textController.text.trim())
                           : null,
                       child: Text("Enviar"),
                     )
