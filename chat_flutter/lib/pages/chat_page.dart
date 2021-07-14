@@ -77,7 +77,7 @@ class _ChatPageState extends State<ChatPage> {
                   onChanged: (String texto) {
                     if (texto.trim().length > 0) {
                       setState(() {
-                        _estaEscrevendo = false;
+                        _estaEscrevendo = true;
                       });
                     } else {
                       setState(() {
@@ -104,7 +104,7 @@ class _ChatPageState extends State<ChatPage> {
                   : Container(
                       margin: EdgeInsets.symmetric(horizontal: 4.0),
                       child: IconTheme(
-                        data: IconThemeData(color: Colors.blue[100]),
+                        data: IconThemeData(color: Colors.blue[400]),
                         child: IconButton(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
