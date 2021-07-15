@@ -1,20 +1,16 @@
-const { io } = require('../index');
+const { io } = require("../index");
 
+// Messages de Sockets
+io.on("connection", (client) => {
+  console.log("Cliente conectado");
 
-// Mensajes de Sockets
-io.on('connection', client => {
-    console.log('Cliente conectado');
+  client.on("disconnect", () => {
+    console.log("Cliente desconectado");
+  });
 
-    client.on('disconnect', () => {
-        console.log('Cliente desconectado');
-    });
+  client.on("message", (payload) => {
+    console.log("Messagem", payload);
 
-    client.on('mensaje', ( payload ) => {
-        console.log('Mensaje', payload);
-
-        io.emit( 'mensaje', { admin: 'Nuevo mensaje' } );
-
-    });
-
-
+    io.emit("message", { admin: "Nova Messagem" });
+  });
 });

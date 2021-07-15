@@ -18,13 +18,13 @@
       });
 
       socket.on("disconnect", function () {
-        console.log("Perdimos comunicación con el servidor");
+        console.log("Pernos a comunicao com o servidor");
       });
 
-      socket.emit("mensaje", { nombre: "Fernando" });
+      socket.emit("message", { nombre: "Fernando" });
 
-      socket.on("mensaje", function (payload) {
-        console.log("Escuhando:", payload);
+      socket.on("message", function (payload) {
+        console.log("Escutando:", payload);
       });
     </script>
   </body>
