@@ -5,7 +5,7 @@ require("dotenv").config();
 
 //DB configuration
 
-// require("./database/config").dbConnection();
+require("./database/config").dbConnection();
 
 // App de Express
 const app = express();
