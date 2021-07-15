@@ -10,6 +10,9 @@ require("./database/config").dbConnection();
 // App de Express
 const app = express();
 
+//Leitura e conversao do corpo da requisicao
+app.use(express.json);
+
 // Node Server
 const server = require("http").createServer(app);
 module.exports.io = require("socket.io")(server);
