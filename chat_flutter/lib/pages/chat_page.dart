@@ -11,61 +11,12 @@ class ChatPage extends StatefulWidget {
   _ChatPageState createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _focusNode = new FocusNode();
   bool _estaEscrevendo = false;
 
-  List<ChatMessage> _messages = [
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem ?",
-      uid: "123",
-    ),
-    ChatMessage(
-      texto: "Ola tudo bem  e tu?",
-      uid: "132",
-    ),
-  ];
+  List<ChatMessage> _messages = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,14 +110,15 @@ class _ChatPageState extends State<ChatPage> {
                       child: IconTheme(
                         data: IconThemeData(color: Colors.blue[400]),
                         child: IconButton(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            icon: Icon(Icons.send),
-                            onPressed: _estaEscrevendo
-                                ? () => _handleSubmit(
-                                      _textController.text.trim(),
-                                    )
-                                : null),
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          icon: Icon(Icons.send),
+                          onPressed: _estaEscrevendo
+                              ? () => _handleSubmit(
+                                    _textController.text.trim(),
+                                  )
+                              : null,
+                        ),
                       ),
                     ),
             ),
@@ -177,17 +129,24 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   _handleSubmit(String text) {
-    debugPrint(text);
-
+    if (text.isEmpty) return;
+    
     _textController.clear();
 
     _focusNode.requestFocus();
 
     final newMessage = ChatMessage(
       uid: "123",
-      texto: _textController.text,
+      texto: text,
+      animationController: AnimationController(
+        vsync: this,
+        duration: Duration(
+          milliseconds: 400,
+        ),
+      ),
     );
     _messages.insert(0, newMessage);
+    newMessage.animationController.forward();
 
     setState(() {
       _estaEscrevendo = false;
