@@ -9,7 +9,6 @@ class SocketService with ChangeNotifier {
   IO.Socket _socket;
 
   ServerStatus get serverStatus => this._serverStatus;
-
   IO.Socket get socket => this._socket;
   Function get emit => this._socket.emit;
 
