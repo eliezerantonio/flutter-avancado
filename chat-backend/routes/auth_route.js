@@ -10,6 +10,15 @@ const { criarUsuario } = require("../controllers/auth_controller");
 const { fieldsValidator } = require("../middlewares/fields-validators");
 const router = Router();
 
-router.post("/new", [fieldsValidator], criarUsuario);
+router.post(
+  "/new",
+  [
+    check("name", "`Nome `e obrigatorio").not().isEmpty(),
+    check("email", "`E-mail `e obrigatorio").isEmail(),
+    check("password", "`Senha `e obrigatoria").not().isEmpty(),
+    fieldsValidator,
+  ],
+  criarUsuario
+);
 
 module.exports = router;
