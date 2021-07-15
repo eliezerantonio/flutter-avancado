@@ -13,34 +13,34 @@ class ChatMessage extends StatelessWidget {
   }
 
   Widget _myMessage() {
-    return Container(
+    return Align(
       alignment: Alignment.centerRight,
-      padding: EdgeInsets.all(
-        8,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.only(right: 5, bottom: 5, left: 50),
+        child: Text(
+          this.texto,
+          style: TextStyle(color: Colors.white),
+        ),
+        decoration: BoxDecoration(
+            color: Color(0xff4D9EF6), borderRadius: BorderRadius.circular(20)),
       ),
-      margin: EdgeInsets.only(bottom: 7, left: 50, right: 5),
-      child: Text(this.texto,
-          style: TextStyle(
-            color: Colors.white,
-          )),
-      decoration: BoxDecoration(
-          color: Color(0xff4d9ef6), borderRadius: BorderRadius.circular(20)),
     );
   }
 
   Widget _noMyMesssage() {
-    return Container(
+    return Align(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.all(
-        8,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.only(left: 5, bottom: 5, right: 50),
+        child: Text(
+          this.texto,
+          style: TextStyle(color: Colors.black87),
+        ),
+        decoration: BoxDecoration(
+            color: Color(0xffE4E5E8), borderRadius: BorderRadius.circular(20)),
       ),
-      margin: EdgeInsets.only(bottom: 7, left: 5, right: 50),
-      child: Text(this.texto,
-          style: TextStyle(
-            color: Colors.black87,
-          )),
-      decoration: BoxDecoration(
-          color: Color(0xffe4e5e8), borderRadius: BorderRadius.circular(20)),
     );
   }
 }

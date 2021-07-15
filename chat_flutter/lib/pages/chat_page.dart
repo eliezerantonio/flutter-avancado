@@ -182,6 +182,13 @@ class _ChatPageState extends State<ChatPage> {
     _textController.clear();
 
     _focusNode.requestFocus();
+
+    final newMessage = ChatMessage(
+      uid: "123",
+      texto: _textController.text,
+    );
+    _messages.insert(0, newMessage);
+
     setState(() {
       _estaEscrevendo = false;
     });
