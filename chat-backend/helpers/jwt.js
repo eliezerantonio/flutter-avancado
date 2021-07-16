@@ -10,7 +10,7 @@ const generateJWT = (uid) => {
       payload,
       process.env.JWT_KEY,
       {
-        expires: "24h",
+        expiresIn: "24h",
       },
       (err, token) => {
         if (err) {
@@ -19,8 +19,8 @@ const generateJWT = (uid) => {
           reject("Nao foi possivel criar token de acesso");
         } else {
           ///criar token
-            
-            resolve(token)
+
+          resolve(token);
         }
       }
     );
