@@ -18,11 +18,12 @@ const criarUsuario = async (req, res = response) => {
     const user = new User(req.body);
     //cripografar a senha
 
-    
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
 
     await user.save();
+
+    // gerar jwt
 
     res.json({
       ok: true,
