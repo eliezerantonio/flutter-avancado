@@ -6,7 +6,7 @@ path: api/login
 
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { criarUsuario } = require("../controllers/auth_controller");
+const { createUser , login} = require("../controllers/auth_controller");
 const { fieldsValidator } = require("../middlewares/fields-validators");
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post(
     check("password", "`Senha `e obrigatoria").not().isEmpty(),
     fieldsValidator,
   ],
-  criarUsuario
+  createUser
 );
 
 //post: /
@@ -29,6 +29,7 @@ router.post("/", [
   check("password", "`Senha `e obrigatoria").not().isEmpty(),
 
   fieldsValidator,
+  login
 ]);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const { generateJWT } = require("../helpers/jwt");
 
-const criarUsuario = async (req, res = response) => {
+const createUser = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
@@ -59,6 +59,6 @@ const login = (req, res) => {
 };
 
 module.exports = {
-  criarUsuario,
+  createUser,
   login,
 };
