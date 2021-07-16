@@ -21,4 +21,14 @@ router.post(
   criarUsuario
 );
 
+//post: /
+//validar e-mail e password
+
+router.post("/", [
+  check("email", "`E-mail `e obrigatorio").isEmail(),
+  check("password", "`Senha `e obrigatoria").not().isEmpty(),
+
+  fieldsValidator,
+]);
+
 module.exports = router;
