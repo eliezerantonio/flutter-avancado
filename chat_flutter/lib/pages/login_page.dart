@@ -1,3 +1,4 @@
+import 'package:chat_flutter/helpers/show_alert.dart';
 import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/widegts/custom_button.dart';
 import 'package:chat_flutter/widegts/custom_input.dart';
@@ -70,12 +71,23 @@ class __FormState extends State<_Form> {
           ),
           CustomButton(
             onPressed: !authService.loading
-                ? () {
+                ? () async {
                     FocusScope.of(context).unfocus();
-                    authService.login(
+                    final loginOk = await authService.login(
                       _emailController.text.trim(),
                       _passwordController.text.trim(),
                     );
+
+                    if (loginOk) {
+                      //navegar
+                    } else {
+                      //   mostrar alerta
+                      showAlert(
+                        context,
+                        "Login incorreto",
+                        'Verifique seus credencias',
+                      );
+                    }
                   }
                 : null,
             text: "Entrar",

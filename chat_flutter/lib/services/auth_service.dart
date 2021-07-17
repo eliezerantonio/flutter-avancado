@@ -17,7 +17,7 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     try {
       loading = true;
       final data = {
@@ -32,11 +32,15 @@ class AuthService with ChangeNotifier {
           'Content-Type': 'application/json',
         },
       );
-      if (response.statusCode == 20) {
+      if (response.statusCode == 200) {
         final loginResponse = loginResponseFromJson(response.body);
         this.user = loginResponse.user;
+        return true;
+
+        //TODO:  guardar token no celular
+      } else {
+        return false;
       }
-      print(response.body);
     } catch (e) {} finally {
       loading = false;
     }
