@@ -35,7 +35,7 @@ class AuthService with ChangeNotifier {
     await _storage.delete(key: "token");
   }
 
-  Future<bool> login(String email, String password) async {
+  Future login(String email, String password) async {
     try {
       loading = true;
       final data = {
@@ -70,7 +70,7 @@ class AuthService with ChangeNotifier {
     return await _storage.write(key: "token", value: token);
   }
 
-  Future<bool> register(String name, String email, String password) async {
+  Future register(String name, String email, String password) async {
     try {
       loading = true;
       final data = {
@@ -95,7 +95,9 @@ class AuthService with ChangeNotifier {
 
         //TODO:  guardar token no celular
       } else {
-        return false;
+        final respBody = jsonDecode(response.body);
+        print(respBody);
+        return respBody["msg"];
       }
     } catch (e) {} finally {
       loading = false;

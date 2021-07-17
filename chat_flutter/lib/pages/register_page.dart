@@ -82,13 +82,13 @@ class __FormState extends State<_Form> {
             onPressed: !authService.loading
                 ? () async {
                     FocusScope.of(context).unfocus();
-                    final loginOk = await authService.register(
+                    final registerOK = await authService.register(
                       _nameController.text.trim(),
                       _emailController.text.trim(),
                       _passwordController.text.trim(),
                     );
 
-                    if (loginOk) {
+                    if (registerOK == true) {
                       //TODO:Conectar o nosso socket
 
                       Navigator.pushReplacementNamed(context, "users");
@@ -97,7 +97,7 @@ class __FormState extends State<_Form> {
                       showAlert(
                         context,
                         "Cadastro incorreto",
-                        'Verifique seus credencias',
+                        registerOK,
                       );
                     }
                   }
