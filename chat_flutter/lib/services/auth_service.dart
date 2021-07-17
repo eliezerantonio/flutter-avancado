@@ -8,23 +8,37 @@ import 'package:chat_flutter/models/login_response.dart';
 
 class AuthService with ChangeNotifier {
   User user;
-  Future login(String email, String password) async {
-    final data = {
-      "email": email,
-      "password": password,
-    };
+  bool _loading = false;
+  get loading => this._loading;
 
-    final response = await http.post(
-      "${Environment.apiUrl}/login",
-      body: json.encode(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-    if (response.statusCode == 20) {
-      final loginResponse = loginResponseFromJson(response.body);
-      this.user = loginResponse.user;
+  set loading(value) {
+    this._loading = value;
+
+    notifyListeners();
+  }
+
+  Future login(String email, String password) async {
+    try {
+      loading = true;
+      final data = {
+        "email": email,
+        "password": password,
+      };
+
+      final response = await http.post(
+        "${Environment.apiUrl}/login",
+        body: json.encode(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 20) {
+        final loginResponse = loginResponseFromJson(response.body);
+        this.user = loginResponse.user;
+      }
+      print(response.body);
+    } catch (e) {} finally {
+      loading = false;
     }
-    print(response.body);
   }
 }

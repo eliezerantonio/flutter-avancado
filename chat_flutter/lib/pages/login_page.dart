@@ -49,6 +49,7 @@ class __FormState extends State<_Form> {
   final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -68,11 +69,14 @@ class __FormState extends State<_Form> {
             keyboardType: TextInputType.emailAddress,
           ),
           CustomButton(
-            onPressed: () {
-              final authService = context.read<AuthService>();
-              authService.login(
-                  _emailController.text, _passwordController.text);
-            },
+            onPressed: !authService.loading
+                ? () {
+                    authService.login(
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                    );
+                  }
+                : null,
             text: "Entrar",
           )
         ],
