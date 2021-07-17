@@ -112,6 +112,8 @@ class AuthService with ChangeNotifier {
       'x-token': token,
     });
 
+    print(response.body);
+
     if (response.statusCode == 200) {
       final loginResponse = loginResponseFromJson(response.body);
       this.user = loginResponse.user;
@@ -120,6 +122,7 @@ class AuthService with ChangeNotifier {
       return true;
     } else {
       this._logout();
+      return false;
     }
   }
 
