@@ -8,7 +8,7 @@ const dbConnection = async () => {
       useCreateIndex: true,
     });
 
-    console.log("Connected DB");
+    console.log("Connected MongoDB Atlas ");
   } catch (error) {
     console.log(error);
 
