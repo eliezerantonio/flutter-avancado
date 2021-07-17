@@ -1,8 +1,10 @@
+import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/widegts/custom_button.dart';
 import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:chat_flutter/widegts/labela.dart';
 import 'package:chat_flutter/widegts/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -66,7 +68,11 @@ class __FormState extends State<_Form> {
             keyboardType: TextInputType.emailAddress,
           ),
           CustomButton(
-            onPressed: () {},
+            onPressed: () {
+              final authService = context.read<AuthService>();
+              authService.login(
+                  _emailController.text, _passwordController.text);
+            },
             text: "Entrar",
           )
         ],
