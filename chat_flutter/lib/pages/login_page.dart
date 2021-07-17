@@ -79,7 +79,9 @@ class __FormState extends State<_Form> {
                     );
 
                     if (loginOk) {
-                      //navegar
+                      //TODO:Conectar o nosso socket
+
+                      Navigator.pushReplacementNamed(context, "users");
                     } else {
                       //   mostrar alerta
                       showAlert(
