@@ -30,6 +30,7 @@ dependencies:
   pull_to_refresh: ^1.6.1
   provider: ^4.3.3
   http: ^0.12.2
+  flutter_secure_storage: ^3.3.5
   
 
 dev_dependencies:
