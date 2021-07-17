@@ -6,6 +6,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class UsersPage extends StatelessWidget {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
   final users = [
     User(uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
     User(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
