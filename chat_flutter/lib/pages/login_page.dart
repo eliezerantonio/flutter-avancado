@@ -71,6 +71,7 @@ class __FormState extends State<_Form> {
           CustomButton(
             onPressed: !authService.loading
                 ? () {
+                    FocusScope.of(context).unfocus();
                     authService.login(
                       _emailController.text.trim(),
                       _passwordController.text.trim(),
