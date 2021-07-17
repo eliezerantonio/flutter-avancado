@@ -29,6 +29,11 @@ class AuthService with ChangeNotifier {
     return token;
   }
 
+  static Future<void> deleteToken() async {
+    final _storage = new FlutterSecureStorage();
+    await _storage.delete(key: "token");
+  }
+
   Future<bool> login(String email, String password) async {
     try {
       loading = true;
@@ -47,6 +52,8 @@ class AuthService with ChangeNotifier {
       if (response.statusCode == 200) {
         final loginResponse = loginResponseFromJson(response.body);
         this.user = loginResponse.user;
+
+        await this._saveToken(loginResponse.token);
         return true;
 
         //TODO:  guardar token no celular
@@ -62,7 +69,7 @@ class AuthService with ChangeNotifier {
     return await _storage.write(key: "token", value: token);
   }
 
-  Future _deleteToken(String token) async {
+  Future _logout(String token) async {
     return await _storage.delete(key: "token");
   }
 }
