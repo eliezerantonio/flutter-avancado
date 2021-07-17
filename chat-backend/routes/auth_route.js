@@ -6,8 +6,13 @@ path: api/login
 
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { createUser , login} = require("../controllers/auth_controller");
+const {
+  createUser,
+  login,
+  renewToken,
+} = require("../controllers/auth_controller");
 const { fieldsValidator } = require("../middlewares/fields-validators");
+const { validatorJWT } = require("../middlewares/jwt-validator");
 const router = Router();
 
 router.post(
@@ -29,7 +34,9 @@ router.post("/", [
   check("password", "`Senha `e obrigatoria").not().isEmpty(),
 
   fieldsValidator,
-  login
+  login,
 ]);
+// validarJWT
+router.get("/renew", renewToken, validatorJWT);
 
 module.exports = router;

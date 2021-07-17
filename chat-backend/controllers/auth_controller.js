@@ -40,7 +40,7 @@ const createUser = async (req, res = response) => {
   }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -58,7 +58,15 @@ const login = (req, res) => {
   }
 };
 
+const renewToken = async (req, res = response) => {
+  res.json({
+    ok: false,
+    msg: "renew",
+  });
+};
+
 module.exports = {
   createUser,
   login,
+  renewToken,
 };
