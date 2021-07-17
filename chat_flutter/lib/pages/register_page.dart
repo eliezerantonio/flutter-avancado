@@ -1,8 +1,11 @@
+import 'package:chat_flutter/helpers/show_alert.dart';
+import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/widegts/custom_button.dart';
 import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:chat_flutter/widegts/labela.dart';
 import 'package:chat_flutter/widegts/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -50,6 +53,7 @@ class __FormState extends State<_Form> {
   final _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -75,7 +79,29 @@ class __FormState extends State<_Form> {
             keyboardType: TextInputType.emailAddress,
           ),
           CustomButton(
-            onPressed: () {},
+            onPressed: !authService.loading
+                ? () async {
+                    FocusScope.of(context).unfocus();
+                    final loginOk = await authService.register(
+                      _nameController.text.trim(),
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                    );
+
+                    if (loginOk) {
+                      //TODO:Conectar o nosso socket
+
+                      Navigator.pushReplacementNamed(context, "users");
+                    } else {
+                      //   mostrar alerta
+                      showAlert(
+                        context,
+                        "Cadastro incorreto",
+                        'Verifique seus credencias',
+                      );
+                    }
+                  }
+                : null,
             text: "Entrar",
           )
         ],

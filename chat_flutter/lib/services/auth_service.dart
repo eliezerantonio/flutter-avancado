@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:chat_flutter/models/register_response.dart';
 import 'package:chat_flutter/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -69,12 +70,11 @@ class AuthService with ChangeNotifier {
     return await _storage.write(key: "token", value: token);
   }
 
-  Future<bool> _register(String name,String email, String password) async {
-
-      try {
+  Future<bool> register(String name, String email, String password) async {
+    try {
       loading = true;
       final data = {
-        "name":name,
+        "name": name,
         "email": email,
         "password": password,
       };
@@ -87,10 +87,10 @@ class AuthService with ChangeNotifier {
         },
       );
       if (response.statusCode == 200) {
-        final loginResponse = loginResponseFromJson(response.body);
-        this.user = loginResponse.user;
+        final registerResponse = registerResponseFromJson(response.body);
+        this.user = registerResponse.user;
 
-        await this._saveToken(loginResponse.token);
+        await this._saveToken(registerResponse.token);
         return true;
 
         //TODO:  guardar token no celular
@@ -100,7 +100,6 @@ class AuthService with ChangeNotifier {
     } catch (e) {} finally {
       loading = false;
     }
-
   }
 
   Future _logout(String token) async {
