@@ -1,3 +1,5 @@
+import 'package:chat_flutter/pages/login_page.dart';
+import 'package:chat_flutter/pages/users_page.dart';
 import 'package:chat_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,11 +27,22 @@ class LoadingPage extends StatelessWidget {
     final auth = await authService.isLoggedIn();
 
     if (auth) {
-
       //TODO:Conectar o nosso socket server
-      Navigator.pushReplacementNamed(context, "users");
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => UsersPage(),
+          transitionDuration: Duration(milliseconds: 0),
+        ),
+      );
     } else {
-      Navigator.pushReplacementNamed(context, "login");
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => LoginPage(),
+          transitionDuration: Duration(milliseconds: 0),
+        ),
+      );
     }
   }
 }
