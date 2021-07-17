@@ -1,6 +1,8 @@
 import 'package:chat_flutter/models/user.dart';
+import 'package:chat_flutter/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsersPage extends StatelessWidget {
@@ -20,9 +22,11 @@ class UsersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
+    final user = authService.user;
     return Scaffold(
       appBar: AppBar(
-        title: Text("MeuNome", style: TextStyle(color: Colors.black)),
+        title: Text(user.name, style: TextStyle(color: Colors.black)),
         elevation: 1,
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -31,7 +35,12 @@ class UsersPage extends StatelessWidget {
             Icons.exit_to_app,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+//TODO:Desconectar socket
+
+            AuthService.deleteToken();
+            Navigator.pushReplacementNamed(context, "login");
+          },
         ),
         actions: [
           Container(
