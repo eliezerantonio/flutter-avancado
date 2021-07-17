@@ -1,17 +1,16 @@
-import 'package:chat_flutter/pages/models/usuario.dart';
+import 'package:chat_flutter/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class UsuariosPage extends StatelessWidget {
+class UsersPage extends StatelessWidget {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  final usuarios = [
-    Usuario(
-        uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
-    Usuario(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
-    Usuario(uid: '4', name: 'Vasco', email: "vasco@gmail.com", online: true),
-    Usuario(
+  final users = [
+    User(uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
+    User(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
+    User(uid: '4', name: 'Vasco', email: "vasco@gmail.com", online: true),
+    User(
         uid: '2',
         name: 'Goncalves',
         email: "goncalves@gmail.com",
@@ -46,43 +45,43 @@ class UsuariosPage extends StatelessWidget {
       body: SmartRefresher(
         controller: _refreshController,
         enablePullDown: true,
-        onRefresh: _cargarUsuarios,
+        onRefresh: _cargarusers,
         header: WaterDropHeader(
           complete: Icon(Icons.check, color: Colors.blue[400]),
           waterDropColor: Colors.blue[400],
         ),
-        child: _listViewUsuarios(),
+        child: _listViewusers(),
       ),
     );
   }
 
-  ListView _listViewUsuarios() {
+  ListView _listViewusers() {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemBuilder: (_, index) => _usuarioListTile(usuarios[index]),
+      itemBuilder: (_, index) => _userListTile(users[index]),
       separatorBuilder: (_, index) => Divider(),
-      itemCount: usuarios.length,
+      itemCount: users.length,
     );
   }
 
-  ListTile _usuarioListTile(Usuario usuario) {
+  ListTile _userListTile(User user) {
     return ListTile(
-      title: Text(usuario.name),
-      subtitle: Text(usuario.email),
+      title: Text(user.name),
+      subtitle: Text(user.email),
       leading: CircleAvatar(
-          child: Text(usuario.name.substring(0, 2)),
+          child: Text(user.name.substring(0, 2)),
           backgroundColor: Colors.blue[100]),
       trailing: Container(
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-            color: usuario.online ? Colors.green : Colors.red,
+            color: user.online ? Colors.green : Colors.red,
             borderRadius: BorderRadius.circular(30)),
       ),
     );
   }
 
-  void _cargarUsuarios() async {
+  void _cargarusers() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _refreshController.refreshCompleted();
   }
