@@ -19,6 +19,6 @@ class AuthService with ChangeNotifier {
       },
     );
 
-    print(response);
+    print(response.body);
   }
 }
