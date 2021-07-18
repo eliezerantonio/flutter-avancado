@@ -4,10 +4,10 @@ const validatorJWT = (req, res, next) => {
   //ler token
   const token = req.header("x-token");
 
-  if (token) {
+  if (!token) {
     return res.status(401).json({
       ok: false,
-      msg: "Nao existe nenhum toekn",
+      msg: "Nao existe nenhum token",
     });
   }
 
