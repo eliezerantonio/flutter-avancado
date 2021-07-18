@@ -4,8 +4,9 @@ const { io } = require("../index");
 io.on("connection", (client) => {
   console.log("Cliente conectado");
 
+const vali
   client.on("disconnect", () => {
-  console.log("Cliente desconectado");
+    console.log("Cliente desconectado");
   });
 
   client.on("message", (payload) => {
