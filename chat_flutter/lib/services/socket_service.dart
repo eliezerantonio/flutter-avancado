@@ -1,3 +1,4 @@
+import 'package:chat_flutter/globals/environment.dart';
 import 'package:flutter/material.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -13,15 +14,12 @@ class SocketService with ChangeNotifier {
   IO.Socket get socket => this._socket;
   Function get emit => this._socket.emit;
 
-  SocketService() {
-    this._initConfig();
-  }
-
-  void _initConfig() {
+  void connect() {
     // Dart client
-    this._socket = IO.io('https://flutter-socket-server.herokuapp.com/', {
+    this._socket = IO.io(Environment.socketUrl, {
       'transports': ['websocket'],
-      'autoConnect': true
+      'autoConnect': true,
+      'forceNew': true
     });
 
     this._socket.on('connect', (_) {
@@ -35,5 +33,9 @@ class SocketService with ChangeNotifier {
       this._serverStatus = ServerStatus.Offline;
       notifyListeners();
     });
+  }
+
+  void disconnect() {
+    this._socket.on('disconnect', (_) {});
   }
 }
