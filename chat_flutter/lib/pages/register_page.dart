@@ -1,5 +1,6 @@
 import 'package:chat_flutter/helpers/show_alert.dart';
 import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/socket_service.dart';
 import 'package:chat_flutter/widegts/custom_button.dart';
 import 'package:chat_flutter/widegts/custom_input.dart';
 import 'package:chat_flutter/widegts/labela.dart';
@@ -54,6 +55,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
+    final socketService = context.watch<SocketService>();
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -89,7 +91,7 @@ class __FormState extends State<_Form> {
                     );
 
                     if (registerOK == true) {
-                      //TODO:Conectar o nosso socket
+                      socketService.connect();
 
                       Navigator.pushReplacementNamed(context, "users");
                     } else {

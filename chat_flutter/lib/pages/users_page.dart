@@ -1,5 +1,6 @@
 import 'package:chat_flutter/models/user.dart';
 import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/socket_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class UsersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
+    final socketService = context.watch<SocketService>();
     final user = authService.user;
     return Scaffold(
       appBar: AppBar(
@@ -36,9 +38,8 @@ class UsersPage extends StatelessWidget {
             color: Colors.black,
           ),
           onPressed: () {
-//TODO:Desconectar socket
-
             AuthService.deleteToken();
+            socketService.disconnect();
             Navigator.pushReplacementNamed(context, "login");
           },
         ),
