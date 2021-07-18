@@ -31,6 +31,7 @@ dependencies:
   provider: ^4.3.3
   http: ^0.12.2
   flutter_secure_storage: ^3.3.5
+  socket_io_client: ^0.9.10
   
 
 dev_dependencies:
