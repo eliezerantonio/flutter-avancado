@@ -56,8 +56,6 @@ class AuthService with ChangeNotifier {
 
         await this._saveToken(loginResponse.token);
         return true;
-
-        //TODO:  guardar token no celular
       } else {
         return false;
       }
@@ -92,8 +90,6 @@ class AuthService with ChangeNotifier {
 
         await this._saveToken(registerResponse.token);
         return true;
-
-        //TODO:  guardar token no celular
       } else {
         final respBody = jsonDecode(response.body);
         print(respBody);

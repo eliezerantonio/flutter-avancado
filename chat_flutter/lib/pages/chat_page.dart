@@ -57,7 +57,6 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
           Divider(
             height: 1,
           ),
-          //TODO:caixa de texto
           Container(
             color: Colors.white,
             height: 50,
