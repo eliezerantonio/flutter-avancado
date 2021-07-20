@@ -14,3 +14,7 @@ const getUsers = async (req, res = response) => {
     users,
   };
 };
+
+module.exports={
+getUsers
+}
