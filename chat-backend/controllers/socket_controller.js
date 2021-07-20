@@ -7,7 +7,7 @@ const userConnected = async (uid = "") => {
   return user;
 };
 
-const userDesconected = async (ui = "") => {
+const userDesconected = async (uid = "") => {
   const user = await User.findById(uid);
   user.online = false;
   await user.save();
@@ -16,4 +16,5 @@ const userDesconected = async (ui = "") => {
 
 module.exports = {
   userConnected,
+  userDesconected,
 };
