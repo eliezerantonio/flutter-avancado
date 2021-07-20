@@ -30,9 +30,10 @@ const generateJWT = (uid) => {
 const validateJWT = (token = "") => {
   try {
     const { uid } = jwt.verify(token, process.env.JWT_KEY);
-
+    console.log(uid);
     return [true, uid];
   } catch (error) {
+    console.log(error);
     return [false, null];
   }
 };

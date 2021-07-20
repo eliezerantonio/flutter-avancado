@@ -8,14 +8,14 @@ const {
 // Messages de Sockets
 io.on("connection", async (client) => {
   const [validate, uid] = validateJWT("x-token");
-
+  console.log(uid);
   if (!validate) {
     return client.disconnect();
   }
 
   await userConnected(uid);
 
-  client.on("disconnect", () => {
+  client.on("disconnect", async () => {
     await userDisconnected(uid);
   });
 
