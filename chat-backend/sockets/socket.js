@@ -15,7 +15,7 @@ io.on("connection", (client) => {
   userConnected(uid);
 
   client.on("disconnect", () => {
-    console.log("Messagem", payload);
+    console.log("Messagem");
     userDesconnected(uid);
   });
 
