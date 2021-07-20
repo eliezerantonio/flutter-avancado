@@ -22,16 +22,16 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final chatService = Provider.of<ChatService>(context);
-    final user = chatService.userTo;
+    final userTo = chatService.userTo;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
           title: Column(
             children: [
               CircleAvatar(
-                maxRadius: 12,
+                maxRadius: 13,
                 child: Text(
-                  user.name.substring(0, 2),
+                  userTo.name.substring(0, 2),
                   style: TextStyle(fontSize: 12),
                 ),
                 backgroundColor: Colors.blue[100],
