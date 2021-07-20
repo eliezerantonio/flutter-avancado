@@ -3,6 +3,7 @@ const { io } = require("../index");
 const {
   userConnected,
   userDesconnected,
+  saveMessage,
 } = require("../controllers/socket_controller");
 
 // Messages de Sockets
@@ -21,8 +22,8 @@ io.on("connection", (client) => {
   // client.to(uid).emit('')
 
   //escutar do cliente msg privada
-  client.on("message-personal", (payload) => {
-    console.log(payload);
+  client.on("message-personal", async (payload) => {
+    await saveMessage(payload);
     io.to(payload.to).emit("message-personal", payload);
   });
   client.on("disconnect", () => {
