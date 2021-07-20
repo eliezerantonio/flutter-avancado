@@ -1,7 +1,10 @@
 const { response } = require("express");
 const User = require("../models/user");
 const getUsers = async (req, res = response) => {
-  const users = await User.findAll();
+  const since = Number(req.query.since || 0);
+  const users = await User.find({ _id: { $ne: req.uid } })
+    .sort("-online")
+    .skip(since).limit(20);
 
   if (!users) {
     return res
@@ -12,9 +15,10 @@ const getUsers = async (req, res = response) => {
   return {
     ok: true,
     users,
+    since,
   };
 };
 
-module.exports={
-getUsers
-}
+module.exports = {
+  getUsers,
+};
