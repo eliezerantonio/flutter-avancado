@@ -7,8 +7,7 @@ const {
 
 // Messages de Sockets
 io.on("connection", async (client) => {
-  const [validate, uid] = validateJWT("x-token");
-  console.log(uid);
+  const [validate, uid] = validateJWT(client.handshake.headers["x-token"]);
   if (!validate) {
     return client.disconnect();
   }

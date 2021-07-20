@@ -24,7 +24,7 @@ class SocketService with ChangeNotifier {
       'autoConnect': true,
       'forceNew': true,
       'extraHeaders': {
-        'x-token': token,
+        'x-token': token, 
       }
     });
 
