@@ -45,7 +45,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 height: 3,
               ),
               Text(
-                'Eliezer Antonio',
+                userTo.name,
                 style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ],

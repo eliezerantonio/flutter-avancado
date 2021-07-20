@@ -20,6 +20,11 @@ io.on("connection", (client) => {
   client.join(uid);
   // client.to(uid).emit('')
 
+  //escutar do cliente msg privada
+  client.on("message-personal", (payload) => {
+
+    console.log(payload)
+  });
   client.on("disconnect", () => {
     console.log("Messagem");
     userDesconnected(uid);
