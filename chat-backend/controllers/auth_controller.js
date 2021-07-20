@@ -14,6 +14,7 @@ const createUser = async (req, res = response) => {
       return res
         .status(400)
         .json({ ok: false, msg: "Correio ja esta registrado" });
+      
     }
 
     const user = new User(req.body);
