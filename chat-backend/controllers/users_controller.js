@@ -1,5 +1,6 @@
 const { response } = require("express");
 const User = require("../models/user");
+
 const getUsers = async (req, res = response) => {
   try {
     const since = Number(req.query.since) || 0;

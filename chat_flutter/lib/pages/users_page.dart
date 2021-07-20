@@ -1,5 +1,6 @@
 import 'package:chat_flutter/models/user.dart';
 import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/chat_service.dart';
 import 'package:chat_flutter/services/socket_service.dart';
 import 'package:chat_flutter/services/users_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -87,6 +88,12 @@ class _UsersPageState extends State<UsersPage> {
 
   ListTile _userListTile(User user) {
     return ListTile(
+      onTap: () {
+        final chatService = context.read<ChatService>();
+        chatService.userTo = user;
+
+        Navigator.pushNamed(context, "chat");
+      },
       title: Text(user.name),
       subtitle: Text(user.email),
       leading: CircleAvatar(
