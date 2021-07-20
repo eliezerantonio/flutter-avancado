@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final registerResponse = registerResponseFromJson(jsonString);
+//     final usersResponse = usersResponseFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:chat_flutter/models/user.dart';
 
-RegisterResponse registerResponseFromJson(String str) => RegisterResponse.fromJson(json.decode(str));
+UsersResponse usersResponseFromJson(String str) => UsersResponse.fromJson(json.decode(str));
 
-String registerResponseToJson(RegisterResponse data) => json.encode(data.toJson());
+String usersResponseToJson(UsersResponse data) => json.encode(data.toJson());
 
-class RegisterResponse {
-    RegisterResponse({
+class UsersResponse {
+    UsersResponse({
         this.ok,
         this.users,
         this.since,
@@ -21,7 +21,7 @@ class RegisterResponse {
     List<User> users;
     int since;
 
-    factory RegisterResponse.fromJson(Map<String, dynamic> json) => RegisterResponse(
+    factory UsersResponse.fromJson(Map<String, dynamic> json) => UsersResponse(
         ok: json["ok"],
         users: List<User>.from(json["users"].map((x) => User.fromJson(x))),
         since: json["since"],
@@ -33,5 +33,4 @@ class RegisterResponse {
         "since": since,
     };
 }
-
 

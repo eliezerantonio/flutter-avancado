@@ -1,25 +1,24 @@
 import 'package:chat_flutter/models/user.dart';
 import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/services/socket_service.dart';
+import 'package:chat_flutter/services/users_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class UsersPage extends StatelessWidget {
-  RefreshController _refreshController =
+class UsersPage extends StatefulWidget {
+  @override
+  _UsersPageState createState() => _UsersPageState();
+}
+
+class _UsersPageState extends State<UsersPage> {
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final users = [
-    User(uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
-    User(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
-    User(uid: '4', name: 'Vasco', email: "vasco@gmail.com", online: true),
-    User(
-        uid: '2',
-        name: 'Goncalves',
-        email: "goncalves@gmail.com",
-        online: false),
-  ];
+  final userService = UsersService();
+
+  List<User> users = [];
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,7 @@ class UsersPage extends StatelessWidget {
   }
 
   void _cargarusers() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    userService.getUsers();
     _refreshController.refreshCompleted();
   }
 }
