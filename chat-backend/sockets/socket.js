@@ -1,18 +1,22 @@
 const { validateJWT } = require("../helpers/jwt");
 const { io } = require("../index");
+const {
+  userConnected,
+  userDisconnected,
+} = require("../controllers/socket_controller");
 
 // Messages de Sockets
-io.on("connection", (client) => {
+io.on("connection", async (client) => {
   const [validate, uid] = validateJWT("x-token");
 
   if (!validate) {
     return client.disconnect();
   }
 
-  console.log("Cliente conectado");
+  await userConnected(uid);
 
   client.on("disconnect", () => {
-    console.log("Cliente desconectado");
+    await userDisconnected(uid);
   });
 
   client.on("message", (payload) => {
