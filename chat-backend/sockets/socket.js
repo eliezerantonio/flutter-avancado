@@ -14,6 +14,12 @@ io.on("connection", (client) => {
 
   userConnected(uid);
 
+  //emcaminhar usuario a uma sala especifica
+  //sala global, client.idio
+
+  client.join(uid);
+  // client.to(uid).emit('')
+
   client.on("disconnect", () => {
     console.log("Messagem");
     userDesconnected(uid);
