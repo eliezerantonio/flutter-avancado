@@ -24,24 +24,29 @@ class SocketService with ChangeNotifier {
       'autoConnect': true,
       'forceNew': true,
       'extraHeaders': {
-        'x-token': token, 
+        'x-token': token,
       }
     });
 
     this._socket.on('connect', (_) {
       this._serverStatus = ServerStatus.Online;
 
-      print("cliente conectado "); 
+      print("cliente conectado ");
       notifyListeners();
     });
 
     this._socket.on('disconnect', (_) {
       this._serverStatus = ServerStatus.Offline;
+   
       notifyListeners();
     });
   }
 
   void disconnect() {
-    this._socket.on('disconnect', (_) {});
+    this._socket.on('disconnect', (_) {
+      this._serverStatus = ServerStatus.Offline;
+      print("cliente desconecatado ");
+      notifyListeners();
+    });
   }
 }

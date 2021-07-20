@@ -2,20 +2,21 @@ const { validateJWT } = require("../helpers/jwt");
 const { io } = require("../index");
 const {
   userConnected,
-  userDisconnected,
+  userDesconnected,
 } = require("../controllers/socket_controller");
 
 // Messages de Sockets
-io.on("connection", async (client) => {
+io.on("connection", (client) => {
   const [validate, uid] = validateJWT(client.handshake.headers["x-token"]);
   if (!validate) {
     return client.disconnect();
   }
 
-  await userConnected(uid);
+  userConnected(uid);
 
-  client.on("disconnect", async () => {
-    await userDisconnected(uid);
+  client.on("disconnect", () => {
+    console.log("Messagem", payload);
+    userDesconnected(uid);
   });
 
   client.on("message", (payload) => {

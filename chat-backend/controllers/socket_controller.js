@@ -3,7 +3,6 @@ const User = require("../models/user");
 const userConnected = async (uid = "") => {
   const user = await User.findById(uid);
 
-  console.log(user);
   user.online = true;
   await user.save();
   return user;
