@@ -21,6 +21,12 @@ class _UsersPageState extends State<UsersPage> {
   List<User> users = [];
 
   @override
+  void initState() {
+    super.initState();
+    this._cargarusers();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
     final socketService = context.watch<SocketService>();
@@ -97,7 +103,9 @@ class _UsersPageState extends State<UsersPage> {
   }
 
   void _cargarusers() async {
-    userService.getUsers();
+    this.users = await userService.getUsers();
+
+    setState(() {});
     _refreshController.refreshCompleted();
   }
 }
