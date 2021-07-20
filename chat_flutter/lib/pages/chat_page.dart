@@ -144,7 +144,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     _focusNode.requestFocus();
 
     final newMessage = ChatMessage(
-      uid: this.authService.user.uid,
+      uid: "123",
       texto: text,
       animationController: AnimationController(
         vsync: this,
@@ -173,6 +173,22 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     this.chatService = Provider.of<ChatService>(context, listen: false);
     this.socketService = Provider.of<SocketService>(context, listen: false);
     this.authService = Provider.of<AuthService>(context, listen: false);
+    this.socketService.socket.on("message-personal", _listenMessage);
+  }
+
+  void _listenMessage(dynamic payload) {
+    ChatMessage message = ChatMessage(
+      animationController: AnimationController(
+          vsync: this, duration: Duration(milliseconds: 300)),
+      uid: payload["from"],
+      texto: payload["message"],
+    );
+
+    setState(() {
+      _messages.insert(0, message);
+    });
+
+    message.animationController.forward();
   }
 
   @override

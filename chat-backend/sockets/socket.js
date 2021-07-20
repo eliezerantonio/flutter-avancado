@@ -22,8 +22,8 @@ io.on("connection", (client) => {
 
   //escutar do cliente msg privada
   client.on("message-personal", (payload) => {
-
-    console.log(payload)
+    console.log(payload);
+    io.to(payload.to).emit("message-personal", payload);
   });
   client.on("disconnect", () => {
     console.log("Messagem");
