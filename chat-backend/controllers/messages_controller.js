@@ -4,8 +4,8 @@ const Messages = require("../models/message");
 
 const getMessages = async (req, res = response) => {
   try {
-    const since = Number(req.query.since) || 0;
     const miId = req.uid;
+
     const messagesFrom = req.params.from;
     const last30 = await Messages.find({
       $or: [
@@ -24,7 +24,7 @@ const getMessages = async (req, res = response) => {
 
     res.json({
       ok: true,
-      last30,
+      messages: last30,
     });
   } catch (error) {}
 };

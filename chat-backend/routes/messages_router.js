@@ -4,10 +4,12 @@
 
 const { Router } = require("express");
 
-const { validateJWT } = require("../middlewares/jwt-validator");
+const { validatorJWT } = require("../middlewares/jwt-validator");
 
 const { getMessages } = require("../controllers/messages_controller");
 
 const router = Router();
 
-router.get("/:from ", validateJWT, getMessages);
+router.get("/:from", validatorJWT, getMessages);
+
+module.exports = router;
