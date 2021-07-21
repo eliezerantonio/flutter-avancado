@@ -2,14 +2,12 @@
  * path :/apimessages
  */
 
+const { Router } = require("express");
 
-const { Router } = require('express')
+const { validateJWT } = require("../middlewares/jwt-validator");
 
-const { validateJWT } = require('../middlewares/jwt-validator')
-
-const { getMessages}=require('../controllers/messages_controller')
+const { getMessages } = require("../controllers/messages_controller");
 
 const router = Router();
 
-
-router.get("/:de", validateJWT, getMessages);
+router.get("/:from ", validateJWT, getMessages);

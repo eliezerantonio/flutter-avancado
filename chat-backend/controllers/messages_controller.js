@@ -5,12 +5,18 @@ const Messages = require("../models/message");
 const getMessages = async (req, res = response) => {
   try {
     const since = Number(req.query.since) || 0;
-    const messages = await Messages.find()
-      .sort("-online")
-      .skip(since)
-      .limit(20);
+    const miId = req.uid;
+    const messagesFrom = req.params.from;
+    const last30 = await Messages.find({
+      $or: [
+        { from: miId, to: messagesFrom },
+        { from: messagesFrom, to: miId },
+      ],
+    })
+      .sort({ createdAt: "desc" })
+      .limit(30);
 
-    if (!messages) {
+    if (!last30) {
       return res
         .status(404)
         .json({ ok: false, msg: "Nenhuma mensagem encontrado" });
@@ -18,8 +24,7 @@ const getMessages = async (req, res = response) => {
 
     res.json({
       ok: true,
-      messages,
-      since,
+      last30,
     });
   } catch (error) {}
 };
