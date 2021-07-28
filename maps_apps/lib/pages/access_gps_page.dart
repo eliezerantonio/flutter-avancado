@@ -1,10 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class AccessGpsPage extends StatelessWidget {
+class AccessGpsPage extends StatefulWidget {
   const AccessGpsPage({Key key}) : super(key: key);
 
   @override
+  _AccessGpsPageState createState() => _AccessGpsPageState();
+}
+
+class _AccessGpsPageState extends State<AccessGpsPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Necessita GPS para usar esta aplicacao",
+            ),
+            MaterialButton(
+              color: Colors.black,
+              elevation: 0,
+              shape: StadiumBorder(),
+              splashColor: Colors.transparent,
+              onPressed: () async {
+                final status = await Permission.location.request();
+                accessGps(status);
+              },
+              child: Text(
+                "Solicitar Acesso",
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void accessGps(PermissionStatus status) {
+    switch (status) {
+      case PermissionStatus.granted:
+        Navigator.pushReplacementNamed(context, 'map');
+        break;
+      case PermissionStatus.undetermined:
+      case PermissionStatus.denied:
+      case PermissionStatus.restricted:
+      case PermissionStatus.permanentlyDenied:
+        openAppSettings();
+    }
   }
 }
