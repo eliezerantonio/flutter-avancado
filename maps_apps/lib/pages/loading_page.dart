@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:maps_apps/helpers/helpers.dart';
+import 'package:maps_apps/pages/map_page.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({Key key}) : super(key: key);
@@ -25,6 +27,6 @@ class LoadingPage extends StatelessWidget {
 
     await Future.delayed(Duration(milliseconds: 1000));
 
-    Navigator.pushReplacementNamed(context, 'map');
+    Navigator.pushReplacement(context, navegarMapFadeIn(context, MapPage()));
   }
 }
