@@ -3,6 +3,12 @@
       <!-- Permissions options for the `location` group -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+       <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!-- State -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
    <application
         android:label="maps_apps"
         android:icon="@mipmap/ic_launcher">
