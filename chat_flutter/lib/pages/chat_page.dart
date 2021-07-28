@@ -1,8 +1,12 @@
 import 'dart:io';
-
-import 'package:chat_flutter/widegts/chat_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/chat_service.dart';
+import 'package:chat_flutter/services/socket_service.dart';
+import 'package:chat_flutter/widegts/chat_message.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key key}) : super(key: key);
@@ -15,19 +19,24 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _focusNode = new FocusNode();
   bool _estaEscrevendo = false;
+  AuthService authService;
 
+  ChatService chatService;
+  SocketService socketService;
   List<ChatMessage> _messages = [];
+
   @override
   Widget build(BuildContext context) {
+    final userTo = chatService.userTo;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
           title: Column(
             children: [
               CircleAvatar(
-                maxRadius: 12,
+                maxRadius: 13,
                 child: Text(
-                  "TE",
+                  userTo.name.substring(0, 2),
                   style: TextStyle(fontSize: 12),
                 ),
                 backgroundColor: Colors.blue[100],
@@ -36,7 +45,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 height: 3,
               ),
               Text(
-                'Eliezer Antonio',
+                userTo.name,
                 style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ],
@@ -60,14 +69,14 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
           Container(
             color: Colors.white,
             height: 50,
-            child: _InputChat(),
+            child: _inputChat(),
           ),
         ],
       )),
     );
   }
 
-  Widget _InputChat() {
+  Widget _inputChat() {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -150,6 +159,36 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     setState(() {
       _estaEscrevendo = false;
     });
+
+    this.socketService.emit('message-personal', {
+      'from': this.authService.user.uid,
+      'to': this.chatService.userTo.uid,
+      'message': text
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.chatService = Provider.of<ChatService>(context, listen: false);
+    this.socketService = Provider.of<SocketService>(context, listen: false);
+    this.authService = Provider.of<AuthService>(context, listen: false);
+    this.socketService.socket.on("message-personal", _listenMessage);
+  }
+
+  void _listenMessage(dynamic payload) {
+    ChatMessage message = ChatMessage(
+      animationController: AnimationController(
+          vsync: this, duration: Duration(milliseconds: 300)),
+      uid: payload["from"],
+      texto: payload["message"],
+    );
+
+    setState(() {
+      _messages.insert(0, message);
+    });
+
+    message.animationController.forward();
   }
 
   @override
@@ -158,5 +197,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     for (ChatMessage message in _messages) {
       message.animationController.dispose();
     }
+
+    this.socketService.socket.off("message-personal");
   }
 }

@@ -1,25 +1,31 @@
 import 'package:chat_flutter/models/user.dart';
 import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/chat_service.dart';
 import 'package:chat_flutter/services/socket_service.dart';
+import 'package:chat_flutter/services/users_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class UsersPage extends StatelessWidget {
-  RefreshController _refreshController =
+class UsersPage extends StatefulWidget {
+  @override
+  _UsersPageState createState() => _UsersPageState();
+}
+
+class _UsersPageState extends State<UsersPage> {
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final users = [
-    User(uid: '1', name: 'Eliezer', email: "eliezer@gmail.com", online: true),
-    User(uid: '3', name: 'Jose', email: "jose@gmail.com", online: true),
-    User(uid: '4', name: 'Vasco', email: "vasco@gmail.com", online: true),
-    User(
-        uid: '2',
-        name: 'Goncalves',
-        email: "goncalves@gmail.com",
-        online: false),
-  ];
+  final userService = UsersService();
+
+  List<User> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    this._cargarusers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +52,15 @@ class UsersPage extends StatelessWidget {
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            child: Icon(
-              Icons.check_circle,
-              color: Colors.blue[400],
-            ),
+            child: (socketService.serverStatus == ServerStatus.Online)
+                ? Icon(
+                    Icons.check_circle,
+                    color: Colors.blue[400],
+                  )
+                : Icon(
+                    Icons.offline_bolt,
+                    color: Colors.red,
+                  ),
           )
         ],
       ),
@@ -77,6 +88,12 @@ class UsersPage extends StatelessWidget {
 
   ListTile _userListTile(User user) {
     return ListTile(
+      onTap: () {
+        final chatService = context.read<ChatService>();
+        chatService.userTo = user;
+
+        Navigator.pushNamed(context, "chat");
+      },
       title: Text(user.name),
       subtitle: Text(user.email),
       leading: CircleAvatar(
@@ -93,7 +110,9 @@ class UsersPage extends StatelessWidget {
   }
 
   void _cargarusers() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    this.users = await userService.getUsers();
+
+    setState(() {});
     _refreshController.refreshCompleted();
   }
 }
