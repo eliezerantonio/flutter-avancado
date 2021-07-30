@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as Geolocator;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/bloc/bloc/my_location_dart_bloc.dart';
 
 class MapPage extends StatefulWidget {
@@ -34,7 +35,10 @@ class _MapPageState extends State<MapPage> {
 
   Widget createMap(MyLocationDartState state) {
     if (!state.existLocation) return Center(child: Text("Buscando..."));
-
-    return Text("${state.location.latitude}${state.location.longitude}");
+    final cameraPosition = new CameraPosition(target: state.location, zoom: 17);
+    return GoogleMap(
+      initialCameraPosition: cameraPosition,
+      myLocationEnabled: true,
+    );
   }
 }
