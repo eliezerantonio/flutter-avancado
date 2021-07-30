@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as Geolocator;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:maps_apps/bloc/bloc/my_location_dart_bloc.dart';
+
+import 'package:maps_apps/bloc/location/my_location_dart_bloc.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -39,6 +40,7 @@ class _MapPageState extends State<MapPage> {
     return GoogleMap(
       initialCameraPosition: cameraPosition,
       myLocationEnabled: true,
+      zoomGesturesEnabled: false,
     );
   }
 }
