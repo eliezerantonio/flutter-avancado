@@ -5,8 +5,9 @@ class BtnLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mapBloc = BlocProvider.of<MapBloc>(context);
+    final myLocationBloc = BlocProvider.of<MyLocationDartBloc>(context);
 
-    
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       child: CircleAvatar(
@@ -15,7 +16,10 @@ class BtnLocation extends StatelessWidget {
         child: IconButton(
           icon: Icon(Icons.my_location),
           color: Colors.black87,
-          onPressed: () {},
+          onPressed: () {
+            final destination = myLocationBloc.state.location;
+            mapBloc.moveCamera(destination);
+          },
         ),
       ),
     );
