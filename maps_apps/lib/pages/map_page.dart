@@ -20,6 +20,7 @@ class _MapPageState extends State<MapPage> {
   @override
   void dispose() {
     super.dispose();
+    context.bloc<MyLocationDartBloc>().canceledSegment();
   }
 
   @override
