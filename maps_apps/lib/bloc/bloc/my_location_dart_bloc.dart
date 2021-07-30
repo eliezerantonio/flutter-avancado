@@ -33,6 +33,8 @@ class MyLocationDartBloc
   Stream<MyLocationDartState> mapEventToState(
     MyLocationDartEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is OnLocationListener) {
+      yield state.copyWith(existLocation: true, location: event.location);
+    }
   }
 }

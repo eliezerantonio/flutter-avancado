@@ -27,9 +27,14 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     Geolocator.getPositionStream();
     return Scaffold(
-      body: Center(
-        child: Text("Mapa"),
-      ),
+      body: BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
+          builder: (context, state) => createMap(state)),
     );
+  }
+
+  Widget createMap(MyLocationDartState state) {
+    if (!state.existLocation) return Center(child: Text("Buscando..."));
+
+    return Text("${state.location.latitude}${state.location.longitude}");
   }
 }
