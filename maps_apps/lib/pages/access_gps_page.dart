@@ -18,7 +18,7 @@ class _AccessGpsPageState extends State<AccessGpsPage>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
