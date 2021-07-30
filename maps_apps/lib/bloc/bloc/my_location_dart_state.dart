@@ -1,6 +1,25 @@
 part of 'my_location_dart_bloc.dart';
 
 @immutable
-abstract class MyLocationDartState {}
+class MyLocationDartState {
+  final bool following;
+  final bool existLocation;
+  final LatLng location;
 
-class MyLocationDartInitial extends MyLocationDartState {}
+  MyLocationDartState({
+    this.following = true,
+    this.existLocation = false,
+    this.location,
+  });
+
+  MyLocationDartState copyWith({
+    bool following,
+    bool existLocation,
+    LatLng location,
+  }) =>
+      new MyLocationDartState(
+        existLocation: existLocation ?? this.existLocation,
+        following: following ?? this.following,
+        location: location ?? this.location,
+      );
+}
