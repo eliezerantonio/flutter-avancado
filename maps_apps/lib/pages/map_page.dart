@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:maps_apps/bloc/location/my_location_dart_bloc.dart';
 import 'package:maps_apps/bloc/map/map_bloc.dart';
+import 'package:maps_apps/widgets/widgets.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -32,6 +33,12 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       body: BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
           builder: (context, state) => createMap(state)),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          BtnLocation(),
+        ],
+      ),
     );
   }
 
