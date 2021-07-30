@@ -7,12 +7,10 @@ part 'map_event.dart';
 part 'map_state.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
-  MapBloc() : super(MapInitial());
+  MapBloc() : super(new MapState());
 
   @override
   Stream<MapState> mapEventToState(
     MapEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
-  }
+  ) async* {}
 }

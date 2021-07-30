@@ -1,6 +1,8 @@
 part of 'map_bloc.dart';
 
 @immutable
-abstract class MapState {}
+class MapState {
+  final bool listMap;
 
-class MapInitial extends MapState {}
+  MapState({this.listMap = false});
+}
