@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as Geolocator;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maps_apps/bloc/bloc/my_location_dart_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:maps_apps/bloc/location/my_location_dart_bloc.dart';
+import 'package:maps_apps/bloc/map/map_bloc.dart';
+import 'package:maps_apps/widgets/widgets.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -29,12 +33,24 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       body: BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
           builder: (context, state) => createMap(state)),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          BtnLocation(),
+        ],
+      ),
     );
   }
 
   Widget createMap(MyLocationDartState state) {
+    final mapBloc = BlocProvider.of<MapBloc>(context);
     if (!state.existLocation) return Center(child: Text("Buscando..."));
-
-    return Text("${state.location.latitude}${state.location.longitude}");
+    final cameraPosition = new CameraPosition(target: state.location, zoom: 17);
+    return GoogleMap(
+      initialCameraPosition: cameraPosition,
+      myLocationEnabled: true,
+      zoomGesturesEnabled: false,
+      onMapCreated: mapBloc.initMap,
+    );
   }
 }
