@@ -19,7 +19,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       this._mapController = controller;
 
       _mapController.setMapStyle(jsonEncode(uberMapTheme));
-      add(onListMap());
+      add(OnListMap());
     }
   }
 
@@ -32,8 +32,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
-    if (event is onListMap) {
+    if (event is OnListMap) {
       yield state.copyWith(listMap: true);
+    } else if (event is OnLocationUpdate) {
+      print(event.location);
     }
   }
 }
