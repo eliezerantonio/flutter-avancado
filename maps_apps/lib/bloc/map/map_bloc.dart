@@ -44,30 +44,39 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     if (event is OnListMap) {
       yield state.copyWith(listMap: true);
     } else if (event is OnLocationUpdate) {
-      List<LatLng> points = [...this._myRoute.points, event.location];
-      this._myRoute = this._myRoute.copyWith(pointsParam: points);
+      yield* this._onLocationUpdate(
+          event); // nao etou a regresar o stream estou a regresar a emisao do stream
+    } else if (event is OnMarkTraveled) {
+      yield* this._onMarkTraveled(event);
+    }
+  }
+
+  Stream<MapState> _onLocationUpdate(OnLocationUpdate event) async* {
+    List<LatLng> points = [...this._myRoute.points, event.location];
+    this._myRoute = this._myRoute.copyWith(pointsParam: points);
 
 //guardando a poluline corrent
-      final currentPolylines = state.polylines;
-      currentPolylines['my_route'] = this._myRoute;
+    final currentPolylines = state.polylines;
+    currentPolylines['my_route'] = this._myRoute;
 
-      //emitirr novo estado
+    //emitirr novo estado
 
-      yield state.copyWith(polylines: currentPolylines);
-    } else if (event is OnMarkTraveled) {
-      if (!state.placeTraveled) {
-        this._myRoute = this._myRoute.copyWith(colorParam: Colors.black87);
-      } else {
-        this._myRoute = this._myRoute.copyWith(colorParam: Colors.transparent);
-      }
+    yield state.copyWith(polylines: currentPolylines);
+  }
 
-      final currentPolylines = state.polylines;
-      currentPolylines['my_route'] = this._myRoute;
-
-      yield state.copyWith(
-        placeTraveled: !state.placeTraveled,
-        polylines: currentPolylines,
-      );
+  Stream<MapState> _onMarkTraveled(OnMarkTraveled event) async* {
+    if (!state.placeTraveled) {
+      this._myRoute = this._myRoute.copyWith(colorParam: Colors.black87);
+    } else {
+      this._myRoute = this._myRoute.copyWith(colorParam: Colors.transparent);
     }
+
+    final currentPolylines = state.polylines;
+    currentPolylines['my_route'] = this._myRoute;
+
+    yield state.copyWith(
+      placeTraveled: !state.placeTraveled,
+      polylines: currentPolylines,
+    );
   }
 }
