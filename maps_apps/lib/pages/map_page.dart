@@ -37,6 +37,7 @@ class _MapPageState extends State<MapPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           BtnLocation(),
+          BtnFollowLocation(),
           BtnMyRoute(),
         ],
       ),

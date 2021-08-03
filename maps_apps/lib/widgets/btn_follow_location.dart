@@ -13,7 +13,9 @@ class BtnFollowLocation extends StatelessWidget {
         backgroundColor: Colors.white,
         maxRadius: 25,
         child: IconButton(
-          icon: Icon(Icons.more_horiz),
+          icon: Icon(
+            Icons.accessibility_new,
+          ),
           color: Colors.black87,
           onPressed: () {
             mapBloc.add(OnMarkTraveled());
