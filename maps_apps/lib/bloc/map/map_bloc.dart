@@ -19,9 +19,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   //Polylines
 
   Polyline _myRoute = new Polyline(
-    polylineId: PolylineId('my_route'),
-    width: 4,
-  );
+      polylineId: PolylineId('my_route'), width: 4, color: Colors.transparent);
 
   void initMap(GoogleMapController controller) {
     if (!state.listMap) {
@@ -44,30 +42,53 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     if (event is OnListMap) {
       yield state.copyWith(listMap: true);
     } else if (event is OnLocationUpdate) {
-      List<LatLng> points = [...this._myRoute.points, event.location];
-      this._myRoute = this._myRoute.copyWith(pointsParam: points);
+      yield* this._onLocationUpdate(
+          event); // nao etou a regresar o stream estou a regresar a emisao do stream
+    } else if (event is OnMarkTraveled) {
+      yield* this._onMarkTraveled(event);
+    } else if (event is OnFollowLocation) {
+      yield* this._onFollowLocation(event);
+    } else if (event is OnMoveMap) {
+      yield state.copyWith(centralLocation: event.centerMap);
+    }
+  }
+
+  Stream<MapState> _onLocationUpdate(OnLocationUpdate event) async* {
+    if (state.followLocation) {
+      this.moveCamera(event.location);
+    }
+    List<LatLng> points = [...this._myRoute.points, event.location];
+    this._myRoute = this._myRoute.copyWith(pointsParam: points);
 
 //guardando a poluline corrent
-      final currentPolylines = state.polylines;
-      currentPolylines['my_route'] = this._myRoute;
+    final currentPolylines = state.polylines;
+    currentPolylines['my_route'] = this._myRoute;
 
-      //emitirr novo estado
+    //emitirr novo estado
 
-      yield state.copyWith(polylines: currentPolylines);
-    } else if (event is OnMarkTraveled) {
-      if (!state.placeTraveled) {
-        this._myRoute = this._myRoute.copyWith(colorParam: Colors.black87);
-      } else {
-        this._myRoute = this._myRoute.copyWith(colorParam: Colors.transparent);
-      }
+    yield state.copyWith(polylines: currentPolylines);
+  }
 
-      final currentPolylines = state.polylines;
-      currentPolylines['my_route'] = this._myRoute;
-
-      yield state.copyWith(
-        placeTraveled: !state.placeTraveled,
-        polylines: currentPolylines,
-      );
+  Stream<MapState> _onMarkTraveled(OnMarkTraveled event) async* {
+    if (!state.placeTraveled) {
+      this._myRoute = this._myRoute.copyWith(colorParam: Colors.black87);
+    } else {
+      this._myRoute = this._myRoute.copyWith(colorParam: Colors.transparent);
     }
+
+    final currentPolylines = state.polylines;
+    currentPolylines['my_route'] = this._myRoute;
+
+    yield state.copyWith(
+      placeTraveled: !state.placeTraveled,
+      polylines: currentPolylines,
+    );
+  }
+
+  Stream<MapState> _onFollowLocation(OnFollowLocation event) async* {
+    if (!state.followLocation) {
+      this.moveCamera(this._myRoute.points[this._myRoute.points.length - 1]);
+    }
+    yield state.copyWith(followLocation: !state.followLocation);
   }
 }

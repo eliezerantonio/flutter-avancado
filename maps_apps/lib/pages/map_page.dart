@@ -37,6 +37,7 @@ class _MapPageState extends State<MapPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           BtnLocation(),
+          BtnFollowLocation(),
           BtnMyRoute(),
         ],
       ),
@@ -55,6 +56,12 @@ class _MapPageState extends State<MapPage> {
       myLocationEnabled: true,
       onMapCreated: mapBloc.initMap,
       polylines: mapBloc.state.polylines.values.toSet(),
+      onCameraMove: (position) {
+        mapBloc.add(OnMoveMap(position.target));
+      },
+      onCameraIdle: () {
+        print('MapaIdle');
+      },
     );
   }
 }
