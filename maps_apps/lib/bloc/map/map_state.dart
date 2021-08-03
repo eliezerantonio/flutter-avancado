@@ -6,6 +6,7 @@ class MapState {
   final bool placeTraveled;
 //Polylines
   final Map<String, Polyline> polylines;
+  
   MapState(
       {this.listMap = false,
       this.placeTraveled = true,

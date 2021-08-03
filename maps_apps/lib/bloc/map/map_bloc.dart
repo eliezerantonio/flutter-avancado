@@ -12,7 +12,15 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc() : super(new MapState());
 
+//map controller
   GoogleMapController _mapController;
+
+  //Polylines
+
+  Polyline _myRoute = new Polyline(
+    polylineId: PolylineId('my_route'),
+    width: 4,
+  );
 
   void initMap(GoogleMapController controller) {
     if (!state.listMap) {
