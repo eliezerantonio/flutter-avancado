@@ -37,6 +37,7 @@ class _MapPageState extends State<MapPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           BtnLocation(),
+          BtnMyRoute(),
         ],
       ),
     );
@@ -45,12 +46,15 @@ class _MapPageState extends State<MapPage> {
   Widget createMap(MyLocationDartState state) {
     final mapBloc = BlocProvider.of<MapBloc>(context);
     if (!state.existLocation) return Center(child: Text("Buscando..."));
+    mapBloc.add(OnLocationUpdate(state.location));
     final cameraPosition = new CameraPosition(target: state.location, zoom: 17);
     return GoogleMap(
       initialCameraPosition: cameraPosition,
+      myLocationButtonEnabled: false,
+      zoomControlsEnabled: false,
       myLocationEnabled: true,
-      zoomGesturesEnabled: false,
       onMapCreated: mapBloc.initMap,
+      polylines: mapBloc.state.polylines.values.toSet(),
     );
   }
 }
