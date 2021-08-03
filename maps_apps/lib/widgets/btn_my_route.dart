@@ -15,7 +15,9 @@ class BtnMyRoute extends StatelessWidget {
         child: IconButton(
           icon: Icon(Icons.more_horiz),
           color: Colors.black87,
-          onPressed: () {},
+          onPressed: () {
+            mapBloc.add(OnMarkTraveled());
+          },
         ),
       ),
     );

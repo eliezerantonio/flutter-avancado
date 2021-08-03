@@ -10,3 +10,5 @@ class OnLocationUpdate extends MapEvent {
 
   OnLocationUpdate(this.location);
 }
+
+class OnMarkTraveled extends MapEvent {}
