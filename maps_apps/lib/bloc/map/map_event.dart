@@ -16,6 +16,6 @@ class OnLocationUpdate extends MapEvent {
 }
 
 class OnMoveMap extends MapEvent {
-  final LatLng location;
-  OnMoveMap(this.location);
+  final LatLng centerMap;
+  OnMoveMap(this.centerMap);
 }
