@@ -43,7 +43,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     if (event is OnListMap) {
       yield state.copyWith(listMap: true);
     } else if (event is OnLocationUpdate) {
-      print(event.location);
+      List<LatLng> points = [...this._myRoute.points, event.location];
+      this._myRoute = this._myRoute.copyWith(pointsParam: points);
+
+//guardando a poluline corrent
+      final currentPolylines = state.polylines;
+      currentPolylines['my_route']=this._myRoute;
     }
   }
 }
