@@ -48,6 +48,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           event); // nao etou a regresar o stream estou a regresar a emisao do stream
     } else if (event is OnMarkTraveled) {
       yield* this._onMarkTraveled(event);
+    } else if (event is OnFollowLocation) {
+      yield state.copyWith(followLocation: !state.followLocation);
     }
   }
 
