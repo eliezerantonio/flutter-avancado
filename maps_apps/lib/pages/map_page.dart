@@ -35,9 +35,7 @@ class _MapPageState extends State<MapPage> {
           builder: (context, state) => createMap(state)),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          BtnLocation(),
-        ],
+        children: [BtnLocation(), BtnMyRoute(),],
       ),
     );
   }
