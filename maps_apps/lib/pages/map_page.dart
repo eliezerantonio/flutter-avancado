@@ -35,7 +35,10 @@ class _MapPageState extends State<MapPage> {
         children: [
           BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
               builder: (context, state) => createMap(state)),
-              SearchBar( )
+          Positioned(
+            top: 15,
+            child: SearchBar(),
+          )
         ],
       ),
       floatingActionButton: Column(
