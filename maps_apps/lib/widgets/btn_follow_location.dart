@@ -14,11 +14,13 @@ class BtnFollowLocation extends StatelessWidget {
         maxRadius: 25,
         child: IconButton(
           icon: Icon(
-            Icons.accessibility_new,
+            mapBloc.state.followLocation
+                ? Icons.directions_run
+                : Icons.accessibility_new,
           ),
           color: Colors.black87,
           onPressed: () {
-            mapBloc.add(OnMarkTraveled());
+            mapBloc.add(OnFollowLocation());
           },
         ),
       ),

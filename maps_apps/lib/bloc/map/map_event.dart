@@ -12,3 +12,5 @@ class OnLocationUpdate extends MapEvent {
 }
 
 class OnMarkTraveled extends MapEvent {}
+
+class OnFollowLocation extends MapEvent {}
