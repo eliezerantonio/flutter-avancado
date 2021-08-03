@@ -2,22 +2,46 @@ import 'package:flutter/material.dart';
 
 class SearchDestination extends SearchDelegate {
   @override
+  final String searchFieldLabel;
+  SearchDestination() : this.searchFieldLabel = 'Buscar...';
+  @override
   List<Widget> buildActions(BuildContext context) {
-    return [];
+    return [
+      IconButton(
+        onPressed: () => this.query = '',
+        icon: Icon(Icons.clear),
+      )
+    ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
-    throw UnimplementedError();
+    return IconButton(
+      onPressed: () => this.close(context, null),
+      icon: Icon(Icons.arrow_back_ios),
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    throw UnimplementedError();
+    return Text("");
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    throw UnimplementedError();
+    return ListView(
+      children: [
+        ListTile(
+          leading: Icon(Icons.location_on),
+          title: Text(
+            'Definir Localizacao Manualmente',
+          ),
+          onTap: () {
+            print("Manuelamente");
+            this.close(context, null);
+          },
+        )
+      ],
+    );
   }
 }
