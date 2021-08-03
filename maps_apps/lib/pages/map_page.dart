@@ -59,6 +59,9 @@ class _MapPageState extends State<MapPage> {
       onCameraMove: (position) {
         mapBloc.add(OnMoveMap(position.target));
       },
+      onCameraIdle: () {
+        print('MapaIdle');
+      },
     );
   }
 }
