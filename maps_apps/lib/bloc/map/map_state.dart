@@ -12,7 +12,7 @@ class MapState {
 
   MapState({
     this.listMap = false,
-    this.placeTraveled = true,
+    this.placeTraveled = false,
     this.followLocation = false,
     this.centralLocation,
     Map<String, Polyline> polylines,

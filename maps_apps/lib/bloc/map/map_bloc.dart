@@ -19,9 +19,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   //Polylines
 
   Polyline _myRoute = new Polyline(
-    polylineId: PolylineId('my_route'),
-    width: 4,
-  );
+      polylineId: PolylineId('my_route'), width: 4, color: Colors.transparent);
 
   void initMap(GoogleMapController controller) {
     if (!state.listMap) {
