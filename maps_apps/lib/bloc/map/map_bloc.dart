@@ -48,7 +48,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
 //guardando a poluline corrent
       final currentPolylines = state.polylines;
-      currentPolylines['my_route']=this._myRoute;
+      currentPolylines['my_route'] = this._myRoute;
+
+      //emitirr novo estado
+
+      yield state.copyWith(polylines: currentPolylines);
     }
   }
 }

@@ -16,9 +16,11 @@ class MapState {
   copyWith({
     bool listMap,
     bool placeTraveled,
+    Map<String, Polyline> polylines
   }) =>
       MapState(
         listMap: listMap ?? this.listMap,
+        polylines:polylines??this.polylines,
         placeTraveled: placeTraveled ?? this.placeTraveled,
       );
 }

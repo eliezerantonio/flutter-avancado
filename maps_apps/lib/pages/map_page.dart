@@ -53,6 +53,7 @@ class _MapPageState extends State<MapPage> {
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       onMapCreated: mapBloc.initMap,
+      polylines: mapBloc.state.polylines.values.toSet(),
     );
   }
 }
