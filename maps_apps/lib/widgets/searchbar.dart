@@ -18,15 +18,16 @@ class SearchBar extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 13),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 5,
-                    offset: Offset(0, 5),
-                  )
-                ]),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 5,
+                  offset: Offset(0, 5),
+                )
+              ],
+            ),
             child: Text(
               "Onde pretende ir ?",
             ),
