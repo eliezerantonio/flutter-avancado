@@ -11,7 +11,7 @@ class MapState {
   final Map<String, Polyline> polylines;
 
   MapState({
-    this.listMap = false,
+    this.listMap = false, 
     this.placeTraveled = false,
     this.followLocation = false,
     this.centralLocation,

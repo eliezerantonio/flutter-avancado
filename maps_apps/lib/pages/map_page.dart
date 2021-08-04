@@ -31,8 +31,16 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     Geolocator.getPositionStream();
     return Scaffold(
-      body: BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
-          builder: (context, state) => createMap(state)),
+      body: Stack(
+        children: [
+          BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
+              builder: (context, state) => createMap(state)),
+          Positioned(
+            top: 15,
+            child: SearchBar(),
+          )
+        ],
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
