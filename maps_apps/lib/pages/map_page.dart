@@ -35,10 +35,12 @@ class _MapPageState extends State<MapPage> {
         children: [
           BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
               builder: (context, state) => createMap(state)),
+          //TODO: alternar quando estou manualmente ou quando nao
           Positioned(
             top: 15,
             child: SearchBar(),
-          )
+          ),
+          ManualMarker()
         ],
       ),
       floatingActionButton: Column(

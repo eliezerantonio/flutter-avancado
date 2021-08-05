@@ -9,3 +9,4 @@ part 'btn_location.dart';
 part 'btn_my_route.dart';
 part 'btn_follow_location.dart';
 part 'searchbar.dart';
+part 'manual_marker.dart';
