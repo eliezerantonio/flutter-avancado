@@ -33,11 +33,14 @@ class ManualMarker extends StatelessWidget {
           left: 40,
           child: MaterialButton(
               minWidth: width - 120,
-              child: Text("Confirmar destino"),
+              child: Text("Confirmar destino",
+                  style: TextStyle(color: Colors.white)),
               color: Colors.black,
               shape: StadiumBorder(),
               splashColor: Colors.transparent,
-              onPressed: () {}),
+              onPressed: () {
+                //TODO:fazer algo!!!
+              }),
         )
       ],
     );
