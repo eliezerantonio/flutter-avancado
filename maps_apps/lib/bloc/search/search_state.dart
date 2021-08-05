@@ -8,6 +8,6 @@ class SearchState {
     this.manualSelected = false,
   });
 
-  copyWith({boolmanualSelected}) =>
+  copyWith({manualSelected}) =>
       SearchState(manualSelected: manualSelected ?? this.manualSelected);
 }

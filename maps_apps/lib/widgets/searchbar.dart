@@ -4,7 +4,11 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
-      return buildSearchBar(context);
+      if (state.manualSelected) {
+        return Container();
+      } else {
+        return buildSearchBar(context);
+      }
     });
   }
 
@@ -44,6 +48,7 @@ class SearchBar extends StatelessWidget {
   }
 
   void searchReturn(BuildContext context, SearchResult searchResult) {
+    print(searchResult.manual);
     if (searchResult.cancel) return;
 
     if (searchResult.manual) {

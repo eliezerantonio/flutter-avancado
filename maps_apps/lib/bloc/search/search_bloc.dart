@@ -14,9 +14,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchEvent event,
   ) async* {
     if (event is OnActiveManualMarker) {
-      yield state.copyWith(boolmanualSelected: true);
+      yield state.copyWith(manualSelected: true);
     } else if (event is OnDesactiveManualMarker) {
-      yield state.copyWith(boolmanualSelected: false);
+      yield state.copyWith(manualSelected: false);
     }
   }
 }
