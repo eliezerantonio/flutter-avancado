@@ -1,8 +1,19 @@
 part of 'widgets.dart';
 
 class ManualMarker extends StatelessWidget {
-  const ManualMarker({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
+      if (state.manualSelected) {
+        return _BuildManualMarker();
+      } else {
+        return Container();
+      }
+    });
+  }
+}
 
+class _BuildManualMarker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
