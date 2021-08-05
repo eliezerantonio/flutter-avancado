@@ -30,7 +30,7 @@ class _BuildManualMarker extends StatelessWidget {
               icon: Icon(Icons.arrow_back),
               color: Colors.black87,
               onPressed: () {
-                //TODO:fazer algo!!!
+                context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
               },
             ),
           ),
