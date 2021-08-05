@@ -21,27 +21,32 @@ class _BuildManualMarker extends StatelessWidget {
       children: [
         //botao regressar
         Positioned(
-          top: 70,
+          top: 40,
           left: 20,
-          child: CircleAvatar(
-            maxRadius: 25,
-            backgroundColor: Colors.white,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              color: Colors.black87,
-              onPressed: () {
-                context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
-              },
+          child: FadeInLeft(
+            child: CircleAvatar(
+              maxRadius: 25,
+              backgroundColor: Colors.white,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                color: Colors.black87,
+                onPressed: () {
+                  context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
+                },
+              ),
             ),
           ),
         ),
 
         Center(
           child: Transform.translate(
-            offset: Offset(0, -12),
-            child: Icon(
-              Icons.location_on,
-              size: 50,
+            offset: Offset(0, -20),
+            child: BounceInDown(
+              from: 200,
+              child: Icon(
+                Icons.location_on,
+                size: 50,
+              ),
             ),
           ),
         ),
@@ -50,16 +55,18 @@ class _BuildManualMarker extends StatelessWidget {
         Positioned(
           bottom: 70,
           left: 40,
-          child: MaterialButton(
-              minWidth: width - 120,
-              child: Text("Confirmar destino",
-                  style: TextStyle(color: Colors.white)),
-              color: Colors.black,
-              shape: StadiumBorder(),
-              splashColor: Colors.transparent,
-              onPressed: () {
-                //TODO:fazer algo!!!
-              }),
+          child: FadeIn(
+            child: MaterialButton(
+                minWidth: width - 120,
+                child: Text("Confirmar destino",
+                    style: TextStyle(color: Colors.white)),
+                color: Colors.black,
+                shape: StadiumBorder(),
+                splashColor: Colors.transparent,
+                onPressed: () {
+                  //TODO:fazer algo!!!
+                }),
+          ),
         )
       ],
     );
