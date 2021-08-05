@@ -3,16 +3,18 @@ part of 'widgets.dart';
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
-      if (state.manualSelected) {
-        return Container();
-      } else {
-        return FadeInDown(
-          duration: Duration(milliseconds: 300),
-          child: buildSearchBar(context),
-        );
-      }
-    });
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        if (state.manualSelected) {
+          return Container();
+        } else {
+          return FadeInDown(
+            duration: Duration(milliseconds: 300),
+            child: buildSearchBar(context),
+          );
+        }
+      },
+    );
   }
 
   Widget buildSearchBar(BuildContext context) {
