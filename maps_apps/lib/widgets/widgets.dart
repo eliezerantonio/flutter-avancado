@@ -6,6 +6,7 @@ import 'package:maps_apps/bloc/map/map_bloc.dart';
 import 'package:maps_apps/bloc/search/search_bloc.dart';
 import 'package:maps_apps/models/search_result.dart';
 import 'package:maps_apps/search/search_destination.dart';
+import 'package:maps_apps/services/traffic_service.dart';
 
 part 'btn_location.dart';
 part 'btn_my_route.dart';

@@ -64,11 +64,18 @@ class _BuildManualMarker extends StatelessWidget {
                 shape: StadiumBorder(),
                 splashColor: Colors.transparent,
                 onPressed: () {
-                  //TODO:fazer algo!!!
+                  this.calculateDestine(context);
                 }),
           ),
         )
       ],
     );
+  }
+
+  void calculateDestine(BuildContext context) {
+    final trafficService = new TrafficService();
+    final start = context.bloc<MyLocationDartBloc>().state.location;
+    final end = context.bloc<MapBloc>().state.centralLocation;
+    trafficService.getCoordsStartAndEnd(start, end);
   }
 }
