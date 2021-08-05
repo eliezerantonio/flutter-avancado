@@ -36,7 +36,15 @@ class _BuildManualMarker extends StatelessWidget {
           ),
         ),
 
-        Center(child: Icon(Icons.location_on, size: 50)),
+        Center(
+          child: Transform.translate(
+            offset: Offset(0, -12),
+            child: Icon(
+              Icons.location_on,
+              size: 50,
+            ),
+          ),
+        ),
 
         //botao confirmar destino
         Positioned(
