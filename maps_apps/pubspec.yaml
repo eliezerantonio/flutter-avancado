@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^6.0.1
   google_maps_flutter: ^0.5.30
   dio: ^3.0.10
+  polyline: ^1.0.2
 
 dev_dependencies:
   flutter_test:
