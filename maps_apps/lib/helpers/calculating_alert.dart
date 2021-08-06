@@ -14,7 +14,7 @@ void calculatingAlert(BuildContext context) {
       context: context,
       builder: (context) => CupertinoAlertDialog(
           title: Text("Porfavor aguarde"),
-          content: CupertinoActivityIndicator()),
+          content: CupertinoActivityIndicator(),),
     );
   }
 }
