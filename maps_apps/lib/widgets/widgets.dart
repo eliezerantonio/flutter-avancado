@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/bloc/location/my_location_dart_bloc.dart';
 import 'package:maps_apps/bloc/map/map_bloc.dart';
 import 'package:maps_apps/bloc/search/search_bloc.dart';
+import 'package:maps_apps/helpers/helpers.dart';
 import 'package:maps_apps/models/search_result.dart';
 import 'package:maps_apps/search/search_destination.dart';
 import 'package:maps_apps/services/traffic_service.dart';

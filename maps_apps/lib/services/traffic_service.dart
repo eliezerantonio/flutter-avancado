@@ -36,4 +36,3 @@ class TrafficService {
   }
 }
 
-final trafficService = new TrafficService();
