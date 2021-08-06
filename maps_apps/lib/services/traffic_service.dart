@@ -21,15 +21,16 @@ class TrafficService {
     final coordsString =
         '${start.longitude},${start.latitude};${end.longitude},${end.latitude},';
     final url = ' ${this.baseUrl}/mapbox/driving/$coordsString';
-    final resp = await this._dio.get(url, queryParameters: {
-      'alternatives': 'true',
-      'geometries': 'polyline6',
-      'steps': false,
-      'access_token': _apiKey,
-      // 'lanuae': 'pt'
-    });
+    // final resp = await this._dio.get(url, queryParameters: {
+    //   'alternatives': 'true',
+    //   'geometries': 'polyline6',
+    //   'steps': false,
+    //   'access_token': _apiKey,
+    //   // 'lanuae': 'pt'
+    // });
 
-    print(resp);
+
+    print(url);
     return;
   }
 }
