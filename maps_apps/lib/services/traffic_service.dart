@@ -11,7 +11,7 @@ class TrafficService {
     return _instance;
   }
   final _dio = new Dio();
-  final baseUrl = 'https://api.mapbox.com/directions/v5';
+ final _baseUrl = 'https://api.mapbox.com/directions/v5';
   final _apiKey =
       'pk.eyJ1IjoiZWxpZXplcmF0b25pbyIsImEiOiJja3J3ZXN1b3AwZnVoMnZucW1rbTJxN3cwIn0.osSIHgWW6kkOlFf3rLsOlA';
 
@@ -19,15 +19,16 @@ class TrafficService {
     LatLng start,
     LatLng end,
   ) async {
-    final coordsString =
-        '${start.longitude},${start.latitude};${end.longitude},${end.latitude},';
-    final url = ' ${this.baseUrl}/mapbox/driving/$coordsString';
+     final coordString = '${ start.longitude },${ start.latitude };${ end.longitude },${ end.latitude }';
+    final url = '${ this._baseUrl }/mapbox/driving/$coordString';
+
     final resp = await this._dio.get(url, queryParameters: {
-      'alternatives': 'true',
+      'alternatives': true,
       'geometries': 'polyline6',
       'steps': false,
       'access_token': _apiKey,
       // 'lanuae': 'pt'
+
     });
 
     final data = DrivingResponse.fromJson(resp.data);

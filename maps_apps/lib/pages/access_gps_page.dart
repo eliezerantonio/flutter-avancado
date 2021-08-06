@@ -70,6 +70,7 @@ class _AccessGpsPageState extends State<AccessGpsPage>
       case PermissionStatus.undetermined:
       case PermissionStatus.denied:
       case PermissionStatus.restricted:
+      case PermissionStatus.limited:
       case PermissionStatus.permanentlyDenied:
         openAppSettings();
     }

@@ -59,18 +59,22 @@ class _MapPageState extends State<MapPage> {
     if (!state.existLocation) return Center(child: Text("Buscando..."));
     mapBloc.add(OnLocationUpdate(state.location));
     final cameraPosition = new CameraPosition(target: state.location, zoom: 17);
-    return GoogleMap(
-      initialCameraPosition: cameraPosition,
-      myLocationButtonEnabled: false,
-      zoomControlsEnabled: false,
-      myLocationEnabled: true,
-      onMapCreated: mapBloc.initMap,
-      polylines: mapBloc.state.polylines.values.toSet(),
-      onCameraMove: (position) {
-        mapBloc.add(OnMoveMap(position.target));
-      },
-      onCameraIdle: () {
-        print('MapaIdle');
+    return BlocBuilder<MapBloc, MapState>(
+      builder: (context, _) {
+        return GoogleMap(
+          initialCameraPosition: cameraPosition,
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: false,
+          myLocationEnabled: true,
+          onMapCreated: mapBloc.initMap,
+          polylines: mapBloc.state.polylines.values.toSet(),
+          onCameraMove: (position) {
+            mapBloc.add(OnMoveMap(position.target));
+          },
+          onCameraIdle: () {
+            print('MapaIdle');
+          },
+        );
       },
     );
   }

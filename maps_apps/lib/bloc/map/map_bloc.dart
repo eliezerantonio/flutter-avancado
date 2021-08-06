@@ -103,6 +103,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       OnCreateRouteInitDestine event) async* {
     this._myRouteDestine =
         this._myRouteDestine.copyWith(pointsParam: event.routes);
-    yield state.copyWith();
+
+        final currentPolylines=state.polylines;
+        currentPolylines['my_route_destine']=this._myRouteDestine;
+
+    yield state.copyWith(polylines:currentPolylines,);
+
   }
 }
