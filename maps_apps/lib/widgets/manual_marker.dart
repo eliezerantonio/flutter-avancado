@@ -73,10 +73,8 @@ class _BuildManualMarker extends StatelessWidget {
   }
 
   void calculateDestine(BuildContext context) async {
-
-
     calculatingAlert(context);
-    
+
     final mapBloc = context.bloc<MapBloc>();
     final trafficService = new TrafficService();
     final start = context.bloc<MyLocationDartBloc>().state.location;
@@ -94,5 +92,6 @@ class _BuildManualMarker extends StatelessWidget {
         points.map((point) => LatLng(point[0], point[1])).toList();
 
     mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration));
+    Navigator.of(context).pop();
   }
 }

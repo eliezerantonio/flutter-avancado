@@ -5,11 +5,17 @@ void calculatingAlert(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-          title: Text("Aguarde"),
-          content: LinearProgressIndicator() //Text("Calculando rota"),
-          ),
+        title: Text("Porfavor Aguarde"),
+        content: CircularProgressIndicator(),
+      ),
     );
   } else {
-    // showCupertino()
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: Text("Porfavor aguarde"),
+        content: CupertinoActivityIndicator(),
+      ),
+    );
   }
 }
