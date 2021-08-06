@@ -72,10 +72,27 @@ class _BuildManualMarker extends StatelessWidget {
     );
   }
 
-  void calculateDestine(BuildContext context) {
+  void calculateDestine(BuildContext context) async {
+    calculatingAlert(context);
+
+    final mapBloc = context.bloc<MapBloc>();
     final trafficService = new TrafficService();
     final start = context.bloc<MyLocationDartBloc>().state.location;
-    final end = context.bloc<MapBloc>().state.centralLocation;
-    trafficService.getCoordsStartAndEnd(start, end);
+    final end = mapBloc.state.centralLocation;
+
+    final trafficResponse =
+        await trafficService.getCoordsStartAndEnd(start, end);
+    final geometry = trafficResponse.routes[0].geometry;
+    final duration = trafficResponse.routes[0].duration;
+    final distance = trafficResponse.routes[0].distance;
+    //decodificar pontos geometricos
+    final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
+        .decodedCoords;
+    final List<LatLng> coordsList =
+        points.map((point) => LatLng(point[0], point[1])).toList();
+
+    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration));
+    Navigator.of(context).pop();
+    context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
   }
 }
