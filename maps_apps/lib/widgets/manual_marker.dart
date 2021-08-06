@@ -73,9 +73,10 @@ class _BuildManualMarker extends StatelessWidget {
   }
 
   void calculateDestine(BuildContext context) async {
+    final mapBloc = context.bloc<MapBloc>();
     final trafficService = new TrafficService();
     final start = context.bloc<MyLocationDartBloc>().state.location;
-    final end = context.bloc<MapBloc>().state.centralLocation;
+    final end = mapBloc.state.centralLocation;
 
     final trafficResponse =
         await trafficService.getCoordsStartAndEnd(start, end);
@@ -85,6 +86,9 @@ class _BuildManualMarker extends StatelessWidget {
     //decodificar pontos geometricos
     final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
         .decodedCoords;
-    final List<LatLng> coordsList = points.map((point) => LatLng(point[0], point[1])).toList();
+    final List<LatLng> coordsList =
+        points.map((point) => LatLng(point[0], point[1])).toList();
+
+    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration));
   }
 }
