@@ -46,6 +46,8 @@ class TrafficService {
       'language': 'pt',
     });
 
-    final searchResponse = searchResponseFromJson();
+    final searchResponse = searchResponseFromJson(resp.data);
+
+    return searchResponse;
   }
 }
