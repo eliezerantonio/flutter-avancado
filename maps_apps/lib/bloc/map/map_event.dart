@@ -19,3 +19,15 @@ class OnMoveMap extends MapEvent {
   final LatLng centerMap;
   OnMoveMap(this.centerMap);
 }
+
+class OnCreateRouteInitDestine extends MapEvent {
+  final List<LatLng> routes;
+  final double distance;
+  final double duration;
+
+  OnCreateRouteInitDestine(
+    this.routes,
+    this.distance,
+    this.duration,
+  );
+}
