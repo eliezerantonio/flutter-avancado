@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/traffic_response.dart';
 
 class TrafficService {
@@ -38,12 +39,13 @@ class TrafficService {
 
   Future getResultForQuery(String search, LatLng proximity) async {
     final url = '${this._baseUrlGeo}/mapbox.places/$search.json';
-    final resp = await this._dio.get(url,queryParameters:{
-      'access_token':true,
-      'autocomplete':true,
-      'proximity':'${proximity.longitude},${proximity.latitude}',
-      'language':'pt',
-    
+    final resp = await this._dio.get(url, queryParameters: {
+      'access_token': true,
+      'autocomplete': true,
+      'proximity': '${proximity.longitude},${proximity.latitude}',
+      'language': 'pt',
     });
+
+    final searchResponse = searchResponseFromJson();
   }
 }
