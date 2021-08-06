@@ -6,16 +6,15 @@ void calculatingAlert(BuildContext context) {
       context: context,
       builder: (context) => AlertDialog(
         title: Text("Porfavor Aguarde"),
-        content: CircularProgressIndicator(),
+        content: Text("Calculando rota..."),
       ),
     );
   } else {
     showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: Text("Porfavor aguarde"),
-        content: CupertinoActivityIndicator(),
-      ),
+          title: Text("Porfavor aguarde"),
+          content: CupertinoActivityIndicator()),
     );
   }
 }

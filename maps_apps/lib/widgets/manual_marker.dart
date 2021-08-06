@@ -93,5 +93,6 @@ class _BuildManualMarker extends StatelessWidget {
 
     mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration));
     Navigator.of(context).pop();
+    context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
   }
 }
