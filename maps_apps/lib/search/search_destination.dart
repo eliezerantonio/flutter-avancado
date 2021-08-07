@@ -60,6 +60,8 @@ class SearchDestination extends SearchDelegate<SearchResult> {
     if (this.query == 0) {
       return Container();
     }
+    this._trafficService.getResultForQuery(this.query.trim(), this.proximidad);
+
     return FutureBuilder<SearchResponse>(
       future:
           this._trafficService.getResultForQuery(this.query.trim(), proximidad),
@@ -79,6 +81,21 @@ class SearchDestination extends SearchDelegate<SearchResult> {
               leading: Icon(Icons.place),
               title: Text(place.text),
               subtitle: Text(place.placeName),
+              onTap: () {
+                this.close(
+                  context,
+                  SearchResult(
+                    cancel: false,
+                    manual: false,
+                    position: LatLng(
+                      place.center[1],
+                      place.center[0],
+                    ),
+                    nameDestination: place.textEs,
+                    description: place.placeNameEs,
+                  ),
+                );
+              },
             );
           },
           separatorBuilder: (BuildContext context, int index) => Divider(),
