@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_apps/helpers/debouncer.dart';
 import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/traffic_response.dart';
 
@@ -12,6 +13,8 @@ class TrafficService {
     return _instance;
   }
   final _dio = new Dio();
+
+final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500 ));
   final _baseUrlDir = 'https://api.mapbox.com/directions/v5';
   final _baseUrlGeo = 'https://api.mapbox.com/geocoding/v5';
   final _apiKey =
