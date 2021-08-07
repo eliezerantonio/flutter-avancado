@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
+import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/search_result.dart';
 import 'package:maps_apps/services/traffic_service.dart';
 
@@ -32,9 +33,7 @@ class SearchDestination extends SearchDelegate<SearchResult> {
 
   @override
   Widget buildResults(BuildContext context) {
-    this._trafficService.getResultForQuery(this.query.trim(), proximidad);
-
-    return Text("BuildResult");
+    return _contructorResultSugestions();
   }
 
   @override
@@ -47,11 +46,37 @@ class SearchDestination extends SearchDelegate<SearchResult> {
             'Definir Localizacao Manualmente',
           ),
           onTap: () {
-            print("Manuelamente");
             this.close(context, SearchResult(cancel: false, manual: true));
           },
         )
       ],
+    );
+  }
+
+  Widget _contructorResultSugestions() {
+    return FutureBuilder<SearchResponse>(
+      future:
+          this._trafficService.getResultForQuery(this.query.trim(), proximidad),
+      builder: (BuildContext context, AsyncSnapshot<SearchResponse> snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        final places = snapshot.data.features;
+
+        return ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
+            final place = places[index];
+            return ListTile(
+              leading: Icon(Icons.place),
+              title: Text(place.textPt),
+              subtitle: Text(place.placeNamePt),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => Divider(),
+          itemCount: places.length,
+        );
+      },
     );
   }
 }
