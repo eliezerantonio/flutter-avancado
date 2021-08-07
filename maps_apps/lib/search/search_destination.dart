@@ -55,9 +55,14 @@ class SearchDestination extends SearchDelegate<SearchResult> {
               .history
               .map(
                 (x) => ListTile(
-                    leading: Icon(Icons.history),
-                    title: Text(x.nameDestination),
-                    subtitle: Text(x.description)),
+                  leading: Icon(Icons.history),
+                  // title: Text(x.nameDestination),
+                  // subtitle: Text(x.description),
+                  onTap: () {
+                    this.close(
+                        context, SearchResult(cancel: false, manual: true));
+                  },
+                ),
               )
               .toList()
         ],
