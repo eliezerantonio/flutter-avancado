@@ -30,7 +30,9 @@ class SearchBar extends StatelessWidget {
             final history = context.bloc<SearchBloc>().state.history;
 
             final SearchResult result = await showSearch(
-                context: context, delegate: SearchDestination(proximidad, history));
+              context: context,
+              delegate: SearchDestination(proximidad, history),
+            );
             searchReturn(context, result);
           },
           child: Container(
@@ -91,6 +93,8 @@ class SearchBar extends StatelessWidget {
     //salvar histial
 
     final searchBloc = context.bloc<SearchBloc>();
+    print("=>>>>>>>>>>>>>>${searchBloc}");
     searchBloc.add(OnSaveHistorySearch(searchResult));
+
   }
 }
