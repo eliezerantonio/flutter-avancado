@@ -9,7 +9,8 @@ class SearchDestination extends SearchDelegate<SearchResult> {
   final String searchFieldLabel;
   final TrafficService _trafficService;
   final LatLng proximidad;
-  SearchDestination(this.proximidad)
+  final List<SearchResult> history;
+  SearchDestination(this.proximidad, this.history)
       : this.searchFieldLabel = 'Buscar...',
         this._trafficService = new TrafficService();
   @override
@@ -38,22 +39,39 @@ class SearchDestination extends SearchDelegate<SearchResult> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return ListView(
-      children: [
-        ListTile(
-          leading: Icon(Icons.location_on),
-          title: Text(
-            'Definir Localizacao Manualmente',
+    if (this.query.length == 0) {
+      return ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.location_on),
+            title: Text(
+              'Definir Localizacao Manualmente',
+            ),
+            onTap: () {
+              this.close(context, SearchResult(cancel: false, manual: true));
+            },
           ),
-          onTap: () {
-            this.close(context, SearchResult(cancel: false, manual: true));
-          },
-        )
-      ],
-    );
+          ...this
+              .history
+              .map(
+                (x) => ListTile(
+                    leading: Icon(Icons.history),
+                    title: Text(x.nameDestination),
+                    subtitle: Text(x.description)),
+              )
+              .toList()
+        ],
+      );
+    }
+    return this._contructorResultSugestions();
   }
 
   Widget _contructorResultSugestions() {
+    if (this.query == 0) {
+      return Container();
+    }
+    this._trafficService.getResultForQuery(this.query.trim(), this.proximidad);
+
     return FutureBuilder<SearchResponse>(
       future:
           this._trafficService.getResultForQuery(this.query.trim(), proximidad),
@@ -63,7 +81,9 @@ class SearchDestination extends SearchDelegate<SearchResult> {
         }
 
         final places = snapshot.data.features;
-
+        if (places.length == 0) {
+          return ListTile(title: Text("Sem resultados para $query"));
+        }
         return ListView.separated(
           itemBuilder: (BuildContext context, int index) {
             final place = places[index];
@@ -71,6 +91,21 @@ class SearchDestination extends SearchDelegate<SearchResult> {
               leading: Icon(Icons.place),
               title: Text(place.text),
               subtitle: Text(place.placeName),
+              onTap: () {
+                this.close(
+                  context,
+                  SearchResult(
+                    cancel: false,
+                    manual: false,
+                    position: LatLng(
+                      place.center[1],
+                      place.center[0],
+                    ),
+                    nameDestination: place.textEs,
+                    description: place.placeNameEs,
+                  ),
+                );
+              },
             );
           },
           separatorBuilder: (BuildContext context, int index) => Divider(),

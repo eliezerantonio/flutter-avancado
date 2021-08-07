@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_apps/helpers/debouncer.dart';
 import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/traffic_response.dart';
 
@@ -12,6 +13,8 @@ class TrafficService {
     return _instance;
   }
   final _dio = new Dio();
+
+  final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500));
   final _baseUrlDir = 'https://api.mapbox.com/directions/v5';
   final _baseUrlGeo = 'https://api.mapbox.com/geocoding/v5';
   final _apiKey =
@@ -40,14 +43,18 @@ class TrafficService {
   Future<SearchResponse> getResultForQuery(
       String search, LatLng proximity) async {
     final url = '${this._baseUrlGeo}/mapbox.places/$search.json';
-    final resp = await this._dio.get(url, queryParameters: {
-      'access_token': this._apiKey,
-      'autocomplete': 'true',
-      'proximity': '${proximity.longitude},${proximity.latitude}',
-      'language': 'pt',
-    });
-    final searchResponse = searchResponseFromJson(resp.data);
-    print("=========>>>>$searchResponse");
-    return searchResponse;
+
+    try {
+      final resp = await this._dio.get(url, queryParameters: {
+        'access_token': this._apiKey,
+        'autocomplete': 'true',
+        'proximity': '${proximity.longitude},${proximity.latitude}',
+        'language': 'pt',
+      });
+      final searchResponse = searchResponseFromJson(resp.data);
+      return searchResponse;
+    } catch (e) {
+      return SearchResponse(features: []);
+    }
   }
 }

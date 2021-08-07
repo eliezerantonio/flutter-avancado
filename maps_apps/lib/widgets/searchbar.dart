@@ -27,8 +27,10 @@ class SearchBar extends StatelessWidget {
           onTap: () async {
             final proximidad =
                 context.bloc<MyLocationDartBloc>().state.location;
+            final history = context.bloc<SearchBloc>().state.history;
+
             final SearchResult result = await showSearch(
-                context: context, delegate: SearchDestination(proximidad));
+                context: context, delegate: SearchDestination(proximidad, history));
             searchReturn(context, result);
           },
           child: Container(
@@ -54,7 +56,8 @@ class SearchBar extends StatelessWidget {
     );
   }
 
-  void searchReturn(BuildContext context, SearchResult searchResult) {
+  Future<void> searchReturn(
+      BuildContext context, SearchResult searchResult) async {
     print(searchResult.manual);
     if (searchResult.cancel) return;
 
@@ -62,5 +65,32 @@ class SearchBar extends StatelessWidget {
       context.bloc<SearchBloc>().add(OnActiveManualMarker());
       return;
     }
+    //calculcar a rota com base ao valor: Result;
+
+    final trafficService = new TrafficService();
+    final mapBloc = context.bloc<MapBloc>();
+    final inception = context.bloc<MyLocationDartBloc>().state.location;
+    final destination = searchResult.position;
+
+    final drivingResponse =
+        await trafficService.getCoordsStartAndEnd(inception, destination);
+    final geometry = drivingResponse.routes[0].geometry;
+    final duration = drivingResponse.routes[0].duration;
+    final distance = drivingResponse.routes[0].distance;
+
+    final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6);
+
+    final List<LatLng> routeCoodenads = points.decodedCoords
+        .map((point) => LatLng(point[0], point[1]))
+        .toList();
+
+    mapBloc.add(OnCreateRouteInitDestine(routeCoodenads, distance, duration));
+
+    Navigator.of(context).pop();
+
+    //salvar histial
+
+    final searchBloc = context.bloc<SearchBloc>();
+    searchBloc.add(OnSaveHistorySearch(searchResult));
   }
 }
