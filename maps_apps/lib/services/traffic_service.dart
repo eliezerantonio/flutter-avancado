@@ -46,7 +46,6 @@ class TrafficService {
       'proximity': '${proximity.longitude},${proximity.latitude}',
       'language': 'pt',
     });
-
     final searchResponse = searchResponseFromJson(resp.data);
     print("=========>>>>$searchResponse");
     return searchResponse;

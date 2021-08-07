@@ -69,8 +69,8 @@ class SearchDestination extends SearchDelegate<SearchResult> {
             final place = places[index];
             return ListTile(
               leading: Icon(Icons.place),
-              title: Text(place.textPt),
-              subtitle: Text(place.placeNamePt),
+              title: Text(place.text),
+              subtitle: Text(place.placeName),
             );
           },
           separatorBuilder: (BuildContext context, int index) => Divider(),
