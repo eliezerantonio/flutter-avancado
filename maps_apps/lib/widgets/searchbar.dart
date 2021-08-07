@@ -27,8 +27,10 @@ class SearchBar extends StatelessWidget {
           onTap: () async {
             final proximidad =
                 context.bloc<MyLocationDartBloc>().state.location;
+            final history = context.bloc<SearchBloc>().state.history;
+
             final SearchResult result = await showSearch(
-                context: context, delegate: SearchDestination(proximidad));
+                context: context, delegate: SearchDestination(proximidad, history));
             searchReturn(context, result);
           },
           child: Container(
@@ -85,5 +87,10 @@ class SearchBar extends StatelessWidget {
     mapBloc.add(OnCreateRouteInitDestine(routeCoodenads, distance, duration));
 
     Navigator.of(context).pop();
+
+    //salvar histial
+
+    final searchBloc = context.bloc<SearchBloc>();
+    searchBloc.add(OnSaveHistorySearch(searchResult));
   }
 }

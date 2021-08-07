@@ -9,7 +9,8 @@ class SearchDestination extends SearchDelegate<SearchResult> {
   final String searchFieldLabel;
   final TrafficService _trafficService;
   final LatLng proximidad;
-  SearchDestination(this.proximidad)
+  final List<SearchResult> history;
+  SearchDestination(this.proximidad, this.history)
       : this.searchFieldLabel = 'Buscar...',
         this._trafficService = new TrafficService();
   @override
@@ -49,7 +50,16 @@ class SearchDestination extends SearchDelegate<SearchResult> {
             onTap: () {
               this.close(context, SearchResult(cancel: false, manual: true));
             },
-          )
+          ),
+          ...this
+              .history
+              .map(
+                (x) => ListTile(
+                    leading: Icon(Icons.history),
+                    title: Text(x.nameDestination),
+                    subtitle: Text(x.description)),
+              )
+              .toList()
         ],
       );
     }
