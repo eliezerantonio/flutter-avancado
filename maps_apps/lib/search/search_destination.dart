@@ -38,22 +38,28 @@ class SearchDestination extends SearchDelegate<SearchResult> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return ListView(
-      children: [
-        ListTile(
-          leading: Icon(Icons.location_on),
-          title: Text(
-            'Definir Localizacao Manualmente',
-          ),
-          onTap: () {
-            this.close(context, SearchResult(cancel: false, manual: true));
-          },
-        )
-      ],
-    );
+    if (this.query.length == 0) {
+      return ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.location_on),
+            title: Text(
+              'Definir Localizacao Manualmente',
+            ),
+            onTap: () {
+              this.close(context, SearchResult(cancel: false, manual: true));
+            },
+          )
+        ],
+      );
+    }
+    return this._contructorResultSugestions();
   }
 
   Widget _contructorResultSugestions() {
+    if (this.query == 0) {
+      return Container();
+    }
     return FutureBuilder<SearchResponse>(
       future:
           this._trafficService.getResultForQuery(this.query.trim(), proximidad),
@@ -63,7 +69,9 @@ class SearchDestination extends SearchDelegate<SearchResult> {
         }
 
         final places = snapshot.data.features;
-
+        if (places.length == 0) {
+          return ListTile(title: Text("Sem resultados para $query"));
+        }
         return ListView.separated(
           itemBuilder: (BuildContext context, int index) {
             final place = places[index];
