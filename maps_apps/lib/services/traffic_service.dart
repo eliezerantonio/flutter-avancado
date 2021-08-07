@@ -14,7 +14,7 @@ class TrafficService {
   }
   final _dio = new Dio();
 
-final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500 ));
+  final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500));
   final _baseUrlDir = 'https://api.mapbox.com/directions/v5';
   final _baseUrlGeo = 'https://api.mapbox.com/geocoding/v5';
   final _apiKey =
