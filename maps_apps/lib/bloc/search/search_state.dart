@@ -5,10 +5,8 @@ class SearchState {
   final bool manualSelected;
   final List<SearchResult> history;
 
-  SearchState({
-    this.manualSelected = false,
-    List<SearchResult> history,
-  }) : this.history = (history == null) ? [] : history;
+  SearchState({this.manualSelected = false, List<SearchResult> history})
+      : this.history = (history == null) ? [] : history;
 
   copyWith({
     bool manualSelected,

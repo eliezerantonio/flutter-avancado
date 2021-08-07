@@ -10,9 +10,11 @@ class SearchDestination extends SearchDelegate<SearchResult> {
   final TrafficService _trafficService;
   final LatLng proximidad;
   final List<SearchResult> history;
+
   SearchDestination(this.proximidad, this.history)
       : this.searchFieldLabel = 'Buscar...',
         this._trafficService = new TrafficService();
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -34,7 +36,7 @@ class SearchDestination extends SearchDelegate<SearchResult> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return _contructorResultSugestions();
+    return this._contructorResultSugestions();
   }
 
   @override
@@ -51,15 +53,17 @@ class SearchDestination extends SearchDelegate<SearchResult> {
               this.close(context, SearchResult(cancel: false, manual: true));
             },
           ),
-          ...this
-              .history
-              .map(
-                (x) => ListTile(
-                    leading: Icon(Icons.history),
-                    title: Text(x.nameDestination),
-                    subtitle: Text(x.description)),
-              )
-              .toList()
+          ...this.history.map((x) {
+            print(x.nameDestination);
+            ListTile(
+              leading: Icon(Icons.history),
+              title: Text(x.nameDestination),
+              subtitle: Text(x.description),
+              onTap: () {
+                this.close(context, SearchResult(cancel: false, manual: true));
+              },
+            );
+          }).toList()
         ],
       );
     }
@@ -74,7 +78,7 @@ class SearchDestination extends SearchDelegate<SearchResult> {
 
     return FutureBuilder<SearchResponse>(
       future:
-          this._trafficService.getResultForQuery(this.query.trim(), proximidad),
+          this._trafficService.getResultForQuery(this.query.trim(), this.proximidad),
       builder: (BuildContext context, AsyncSnapshot<SearchResponse> snapshot) {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());

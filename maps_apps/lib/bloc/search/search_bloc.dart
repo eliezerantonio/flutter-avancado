@@ -19,8 +19,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     } else if (event is OnDesactiveManualMarker) {
       yield state.copyWith(manualSelected: false);
     } else if (event is OnSaveHistorySearch) {
-      final newHistorial = [...state.history, event.result];
-      yield state.copyWith(history: newHistorial);
+      final exist = state.history
+          .where((result) =>
+              result.nameDestination == event.result.nameDestination)
+          .length;
+
+      if (exist == 0) {
+        final newHistorial = [...state.history, event.result];
+        yield state.copyWith(history: newHistorial);
+      }
     }
   }
 }
