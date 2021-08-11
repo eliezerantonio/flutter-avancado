@@ -9,14 +9,16 @@ class MapState {
   final LatLng centralLocation;
 //Polylines
   final Map<String, Polyline> polylines;
+  final Map<String, Marker> markers;
 
   MapState({
     this.listMap = false, 
     this.placeTraveled = false,
     this.followLocation = false,
     this.centralLocation,
+    this.markers,
     Map<String, Polyline> polylines,
-  }) : this.polylines = polylines ?? new Map();
+  }) : this.polylines = polylines ?? new Map() this.markers=markers?? new Map();
 
   copyWith({
     bool listMap,

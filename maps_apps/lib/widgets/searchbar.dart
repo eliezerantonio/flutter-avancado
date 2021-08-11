@@ -88,12 +88,12 @@ class SearchBar extends StatelessWidget {
 
     mapBloc.add(OnCreateRouteInitDestine(routeCoodenads, distance, duration));
 
-    // Navigator.of(context).pop();
+    Navigator.of(context).pop();
 
     //salvar histial
 
     final searchBloc = context.bloc<SearchBloc>();
-    print("=>>>>>>>>>>>>>>${searchBloc}");
+  
     searchBloc.add(OnSaveHistorySearch(searchResult));
 
   }
