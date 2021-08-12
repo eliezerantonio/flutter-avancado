@@ -76,12 +76,15 @@ class _BuildManualMarker extends StatelessWidget {
     calculatingAlert(context);
 
     final mapBloc = context.bloc<MapBloc>();
+    final inception = context.bloc<MyLocationDartBloc>().state.location;
     final trafficService = new TrafficService();
-    final start = context.bloc<MyLocationDartBloc>().state.location;
-    final end = mapBloc.state.centralLocation;
+    final destination = mapBloc.state.centralLocation;
 
+  final reserveQueryResponse=  trafficService.getCoordernadasInfo(destination);
+//obter infomacao destino
     final trafficResponse =
-        await trafficService.getCoordsStartAndEnd(start, end);
+        await trafficService.getCoordsStartAndEnd(inception, destination);
+    
     final geometry = trafficResponse.routes[0].geometry;
     final duration = trafficResponse.routes[0].duration;
     final distance = trafficResponse.routes[0].distance;
