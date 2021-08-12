@@ -12,13 +12,14 @@ class MapState {
   final Map<String, Marker> markers;
 
   MapState({
-    this.listMap = false, 
+    this.listMap = false,
     this.placeTraveled = false,
     this.followLocation = false,
     this.centralLocation,
-    this.markers,
+    Map<String, Polyline> markers,
     Map<String, Polyline> polylines,
-  }) : this.polylines = polylines ?? new Map() this.markers=markers?? new Map();
+  })  : this.polylines = polylines ?? new Map(),
+        this.markers = markers ?? new Map();
 
   copyWith({
     bool listMap,
@@ -26,10 +27,12 @@ class MapState {
     bool followLocation,
     LatLng centralLocation,
     Map<String, Polyline> polylines,
+    Map<String, Polyline> markers,
   }) =>
       MapState(
         listMap: listMap ?? this.listMap,
         polylines: polylines ?? this.polylines,
+        markers: markers ?? this.markers,
         centralLocation: centralLocation ?? this.centralLocation,
         followLocation: followLocation ?? this.followLocation,
         placeTraveled: placeTraveled ?? this.placeTraveled,
