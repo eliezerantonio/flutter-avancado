@@ -78,4 +78,17 @@ class TrafficService {
 
     Future.delayed(Duration(milliseconds: 201)).then((_) => timer.cancel());
   }
+
+  Future getCoordernadasInfo(LatLng destinationCords) async {
+    final url =
+        '${this._baseUrlGeo}/mapbox.places/${destinationCords.longitude},${destinationCords.latitude}';
+
+    final resp = await this._dio.get(url, queryParameters: {
+      'access_token': _apiKey,
+      // 'lanuae': 'pt'
+    });
+
+    final data = DrivingResponse.fromJson(resp.data);
+    return data;
+  }
 }
