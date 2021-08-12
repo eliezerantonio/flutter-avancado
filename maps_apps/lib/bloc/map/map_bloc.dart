@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' show Colors;
+import 'package:flutter/painting.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/themes/uber_map_theme.dart';
 import 'package:meta/meta.dart';
@@ -111,6 +112,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     final markerInception = new Marker(
       markerId: MarkerId('inception'),
       position: event.routes[0],
+      infoWindow: InfoWindow(
+        title: 'Minha Localizacao',
+        snippet: 'minha localizacao actual',
+        anchor: Offset(0.5,0.0)
+      ),
     ); //markers
     final markerDestination = new Marker(
       markerId: MarkerId('destination'),
