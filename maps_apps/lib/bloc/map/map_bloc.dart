@@ -114,13 +114,20 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       position: event.routes[0],
       infoWindow: InfoWindow(
         title: 'Minha Localizacao',
-        snippet: 'minha localizacao actual',
-        anchor: Offset(0.5,0.0)
+        snippet: 'Duracao recorrida:${event.duration / 60.floor()} minutos',
       ),
     ); //markers
+
+    double kms = event.distance / 1000;
+    kms = (kms * 100).floorToDouble();
+    kms = kms / 100;
     final markerDestination = new Marker(
       markerId: MarkerId('destination'),
       position: event.routes[event.routes.length - 1],
+      infoWindow: InfoWindow(
+        title: event.destinationName,
+        snippet: 'Distancia: $kms km',
+      ),
     );
 
     final newMarkers = {...state.markers};

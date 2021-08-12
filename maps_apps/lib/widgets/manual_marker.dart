@@ -80,21 +80,23 @@ class _BuildManualMarker extends StatelessWidget {
     final trafficService = new TrafficService();
     final destination = mapBloc.state.centralLocation;
 
-  final reserveQueryResponse=  trafficService.getCoordernadasInfo(destination);
+    final reserveQueryResponse =await
+        trafficService.getCoordernadasInfo(destination);
 //obter infomacao destino
     final trafficResponse =
         await trafficService.getCoordsStartAndEnd(inception, destination);
-    
+
     final geometry = trafficResponse.routes[0].geometry;
     final duration = trafficResponse.routes[0].duration;
     final distance = trafficResponse.routes[0].distance;
+    final destinatioName = reserveQueryResponse.features[0].placeName;
     //decodificar pontos geometricos
     final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
         .decodedCoords;
     final List<LatLng> coordsList =
         points.map((point) => LatLng(point[0], point[1])).toList();
 
-    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration));
+    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration,destinatioName));
     Navigator.of(context).pop();
     context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
   }

@@ -22,6 +22,7 @@ class OnMoveMap extends MapEvent {
 
 class OnCreateRouteInitDestine extends MapEvent {
   final List<LatLng> routes;
+  final String destinationName;
   final double distance;
   final double duration;
 
@@ -29,5 +30,6 @@ class OnCreateRouteInitDestine extends MapEvent {
     this.routes,
     this.distance,
     this.duration,
+    this.destinationName,
   );
 }

@@ -86,7 +86,7 @@ class SearchBar extends StatelessWidget {
         .map((point) => LatLng(point[0], point[1]))
         .toList();
 
-    mapBloc.add(OnCreateRouteInitDestine(routeCoodenads, distance, duration));
+    // mapBloc.add(OnCreateRouteInitDestine(routeCoodenads, distance, duration));
 
     // Navigator.of(context).pop();
 
