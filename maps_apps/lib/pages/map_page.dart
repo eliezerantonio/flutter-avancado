@@ -35,7 +35,7 @@ class _MapPageState extends State<MapPage> {
         children: [
           BlocBuilder<MyLocationDartBloc, MyLocationDartState>(
               builder: (context, state) => createMap(state)),
-          //TODO: alternar quando estou manualmente ou quando nao
+      
           Positioned(
             top: 15,
             child: SearchBar(),
@@ -68,6 +68,7 @@ class _MapPageState extends State<MapPage> {
           myLocationEnabled: true,
           onMapCreated: mapBloc.initMap,
           polylines: mapBloc.state.polylines.values.toSet(),
+          markers: mapBloc.state.markers.values.toSet(),
           onCameraMove: (position) {
             mapBloc.add(OnMoveMap(position.target));
           },

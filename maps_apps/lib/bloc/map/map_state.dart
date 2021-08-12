@@ -16,7 +16,7 @@ class MapState {
     this.placeTraveled = false,
     this.followLocation = false,
     this.centralLocation,
-    Map<String, Polyline> markers,
+    Map<String, Marker> markers,
     Map<String, Polyline> polylines,
   })  : this.polylines = polylines ?? new Map(),
         this.markers = markers ?? new Map();
@@ -27,7 +27,7 @@ class MapState {
     bool followLocation,
     LatLng centralLocation,
     Map<String, Polyline> polylines,
-    Map<String, Polyline> markers,
+    Map<String, Marker> markers,
   }) =>
       MapState(
         listMap: listMap ?? this.listMap,
