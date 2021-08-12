@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/helpers/debouncer.dart';
@@ -15,6 +17,11 @@ class TrafficService {
   final _dio = new Dio();
 
   final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500));
+
+  final StreamController<SearchResponse> _sugerenciasStreamController =
+      new StreamController<SearchResponse>.broadcast();
+  Stream<SearchResponse> get sugerenciasStream =>
+      this._sugerenciasStreamController.stream;
   final _baseUrlDir = 'https://api.mapbox.com/directions/v5';
   final _baseUrlGeo = 'https://api.mapbox.com/geocoding/v5';
   final _apiKey =
@@ -56,5 +63,19 @@ class TrafficService {
     } catch (e) {
       return SearchResponse(features: []);
     }
+  }
+
+  void getSugestionsForQuery(String search, LatLng proximity) {
+    debouncer.value = '';
+    debouncer.onValue = (value) async {
+      final results = await this.getResultForQuery(search, proximity);
+      this._sugerenciasStreamController.add(results);
+    };
+
+    final timer = Timer.periodic(Duration(milliseconds: 200), (_) {
+      debouncer.value = search;
+    });
+
+    Future.delayed(Duration(milliseconds: 201)).then((_) => timer.cancel());
   }
 }
