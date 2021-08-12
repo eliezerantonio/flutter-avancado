@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/helpers/debouncer.dart';
+import 'package:maps_apps/models/reverse_query_response.dart';
 import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/traffic_response.dart';
 
@@ -58,6 +59,7 @@ class TrafficService {
         'proximity': '${proximity.longitude},${proximity.latitude}',
         'language': 'pt',
       });
+      getSugestionsForQuery(search, proximity);
       final searchResponse = searchResponseFromJson(resp.data);
       return searchResponse;
     } catch (e) {
@@ -88,7 +90,7 @@ class TrafficService {
       // 'lanuae': 'pt'
     });
 
-    final data = DrivingResponse.fromJson(resp.data);
+    final data = reverseQueryResponseFromJson(resp.data);
     return data;
   }
 }
