@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MarkerInceptionPainter extends CustomPainter {
-  final int minutos;
-  MarkerInceptionPainter(this.minutos);
+class MarkerDestination extends CustomPainter {
+  final String description;
+  final double metros;
+
+  MarkerDestination(this.description, this.metros);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -27,29 +30,31 @@ class MarkerInceptionPainter extends CustomPainter {
     //Sombra
 
     final Path path = new Path();
-    path.moveTo(40, 20);
+    path.moveTo(0, 20);
     path.lineTo(size.width - 10, 20);
     path.lineTo(size.width - 10, 100);
-    path.lineTo(40, 100);
+    path.lineTo(0, 100);
 
     canvas.drawShadow(path, Colors.black87, 10, false);
 
     //caixa branca
-    final whiteBox = Rect.fromLTWH(40, 20, size.width - 55, 80);
+    final whiteBox = Rect.fromLTWH(0, 20, size.width - 10, 80);
     canvas.drawRect(whiteBox, paint);
 //caixa preta
     paint.color = Colors.black;
-    final blackBox = Rect.fromLTWH(40, 20, 70, 80);
+    final blackBox = Rect.fromLTWH(0, 20, 70, 80);
     canvas.drawRect(blackBox, paint);
 
     //textos
+
+    
     TextSpan textSpan = TextSpan(
       style: TextStyle(
         color: Colors.white,
         fontSize: 30,
         fontWeight: FontWeight.w400,
       ),
-      text: '$minutos',
+      text: '$metros',
     );
     TextPainter textPainter = new TextPainter(
       text: textSpan,
@@ -69,7 +74,7 @@ class MarkerInceptionPainter extends CustomPainter {
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
-      text: 'min',
+      text: 'km',
     );
     textPainter = new TextPainter(
         text: textSpan,
@@ -101,8 +106,5 @@ class MarkerInceptionPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(MarkerInceptionPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(MarkerInceptionPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {}
 }

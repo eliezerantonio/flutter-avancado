@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maps_apps/custom_markers/marker_destination.dart';
 import 'package:maps_apps/custom_markers/marker_inception.dart';
 
 class TestMarkerPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class TestMarkerPage extends StatelessWidget {
             height: 150,
             color: Colors.red,
             child: CustomPaint(
-              painter: MarkerInceptionPainter(250),
+              painter: MarkerDestination('Meu destino', 250),
             )),
       ),
     );
