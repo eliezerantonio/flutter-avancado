@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+part of 'custom_markers.dart';
 
 class MarkerDestination extends CustomPainter {
   final String description;

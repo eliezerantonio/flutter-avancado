@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+part of 'custom_markers.dart';
 class MarkerInceptionPainter extends CustomPainter {
   final int minutos;
   MarkerInceptionPainter(this.minutos);
