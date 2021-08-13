@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' show Colors;
-import 'package:flutter/painting.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_apps/helpers/helpers.dart';
 import 'package:maps_apps/themes/uber_map_theme.dart';
 import 'package:meta/meta.dart';
 
@@ -108,10 +108,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     final currentPolylines = state.polylines;
     currentPolylines['my_route_destine'] = this._myRouteDestine;
 
+    final icon = await getassetImageMarker();
+
 //markers
     final markerInception = new Marker(
       markerId: MarkerId('inception'),
       position: event.routes[0],
+      icon: icon,
       infoWindow: InfoWindow(
         title: 'Minha Localizacao',
         snippet: 'Duracao recorrida:${event.duration / 60.floor()} minutos',
@@ -119,8 +122,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     ); //markers
 
     double kms = event.distance / 1000;
-    kms = (kms * 100).floorToDouble();
+    kms = (kms * 100).floor().toDouble();
     kms = kms / 100;
+
     final markerDestination = new Marker(
       markerId: MarkerId('destination'),
       position: event.routes[event.routes.length - 1],

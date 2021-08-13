@@ -1,7 +1,8 @@
 part of 'helpers.dart';
 
-BitmapDescriptor getassetImageMarker(){ 
-
-
-  
+Future<BitmapDescriptor> getassetImageMarker() async {
+  return await BitmapDescriptor.fromAssetImage(
+    ImageConfiguration(devicePixelRatio: 2.5),
+    'assets/custom-pin.png',
+  );
 }

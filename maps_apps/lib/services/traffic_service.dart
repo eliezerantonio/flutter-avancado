@@ -81,16 +81,17 @@ class TrafficService {
     Future.delayed(Duration(milliseconds: 201)).then((_) => timer.cancel());
   }
 
-  Future getCoordernadasInfo(LatLng destinationCords) async {
+  Future<ReverseQueryResponse> getCoordernadasInfo(LatLng destinoCoords) async {
     final url =
-        '${this._baseUrlGeo}/mapbox.places/${destinationCords.longitude},${destinationCords.latitude}';
+        '${this._baseUrlGeo}/mapbox.places/${destinoCoords.longitude},${destinoCoords.latitude}.json';
 
     final resp = await this._dio.get(url, queryParameters: {
-      'access_token': _apiKey,
-      // 'lanuae': 'pt'
+      'access_token': this._apiKey,
+      'language': 'es',
     });
 
     final data = reverseQueryResponseFromJson(resp.data);
+
     return data;
   }
 }

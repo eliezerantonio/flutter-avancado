@@ -89,14 +89,14 @@ class _BuildManualMarker extends StatelessWidget {
     final geometry = trafficResponse.routes[0].geometry;
     final duration = trafficResponse.routes[0].duration;
     final distance = trafficResponse.routes[0].distance;
-    final destinatioName = reserveQueryResponse.features[0].placeName;
+    // final destinatioName = reserveQueryResponse.features[0].placeName;
     //decodificar pontos geometricos
     final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
         .decodedCoords;
     final List<LatLng> coordsList =
         points.map((point) => LatLng(point[0], point[1])).toList();
 
-    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration,destinatioName));
+    mapBloc.add(OnCreateRouteInitDestine(coordsList, distance, duration,'destinatioName'));
     Navigator.of(context).pop();
     context.bloc<SearchBloc>().add(OnDesactiveManualMarker());
   }
