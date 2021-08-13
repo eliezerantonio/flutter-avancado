@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'test_marker_page',
+        initialRoute: 'loading',
         routes: {
           'map': (_) => MapPage(),
           'loading': (_) => LoadingPage(),
