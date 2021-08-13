@@ -47,14 +47,17 @@ class MarkerDestination extends CustomPainter {
 
     //textos
 
-    
+    double kilometros = this.metros / 1000;
+    kilometros = (kilometros * 100).floor().toDouble();
+    kilometros = kilometros / 100;
+
     TextSpan textSpan = TextSpan(
       style: TextStyle(
         color: Colors.white,
-        fontSize: 30,
+        fontSize: 22,
         fontWeight: FontWeight.w400,
       ),
-      text: '$metros',
+      text: '$kilometros',
     );
     TextPainter textPainter = new TextPainter(
       text: textSpan,
@@ -65,7 +68,7 @@ class MarkerDestination extends CustomPainter {
         minWidth: 70,
       );
 
-    textPainter.paint(canvas, Offset(40, 35));
+    textPainter.paint(canvas, Offset(5, 35));
 
     //Minutos0
     textSpan = TextSpan(
@@ -82,27 +85,28 @@ class MarkerDestination extends CustomPainter {
         textAlign: TextAlign.center)
       ..layout(
         maxWidth: 70,
-        minWidth: 70,
       );
-    textPainter.paint(canvas, Offset(40, 67));
+    textPainter.paint(canvas, Offset(20, 67));
     //My location
 
     textSpan = TextSpan(
       style: TextStyle(
         color: Colors.black,
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
-      text: 'Minha localização',
+      text: this.description,
     );
     textPainter = new TextPainter(
         text: textSpan,
         textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center)
+        textAlign: TextAlign.left,
+        maxLines: 2,
+        ellipsis: '...')
       ..layout(
-        maxWidth: size.width - 130,
+        maxWidth: size.width - 100,
       );
-    textPainter.paint(canvas, Offset(120, 50));
+    textPainter.paint(canvas, Offset(90, 35));
   }
 
   @override
