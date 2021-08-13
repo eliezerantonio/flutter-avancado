@@ -17,7 +17,9 @@ class MarkerInceptionPainter extends CustomPainter {
     //ciculo branco
     paint.color = Colors.white;
     canvas.drawCircle(
-        Offset(blackCircleNegroR, size.height - whiteCircleNegroR), 7, paint);
+        Offset(blackCircleNegroR, size.height - blackCircleNegroR),
+        whiteCircleNegroR,
+        paint);
   }
 
   @override
