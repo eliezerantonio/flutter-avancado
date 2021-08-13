@@ -59,7 +59,7 @@ class TrafficService {
         'proximity': '${proximity.longitude},${proximity.latitude}',
         'language': 'pt',
       });
-      getSugestionsForQuery(search, proximity);
+      // getSugestionsForQuery(search, proximity);
       final searchResponse = searchResponseFromJson(resp.data);
       return searchResponse;
     } catch (e) {
