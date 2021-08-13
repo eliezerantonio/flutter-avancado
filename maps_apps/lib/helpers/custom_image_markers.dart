@@ -7,4 +7,9 @@ Future<BitmapDescriptor> getassetImageMarker() async {
   );
 }
 
+Future<BitmapDescriptor> getNetworkImageMarker() async {
+  final resp = await Dio().get(
+      'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png');
 
+      
+}
