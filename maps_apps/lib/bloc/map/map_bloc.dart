@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' ;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_apps/custom_markers/custom_markers.dart';
 import 'package:maps_apps/helpers/helpers.dart';
 import 'package:maps_apps/themes/uber_map_theme.dart';
 import 'package:meta/meta.dart';
@@ -110,6 +111,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     // final icon = await getassetImageMarker();
     final iconInception = await getMarkerInceptionIcon(event.duration.toInt());
+    final iconDestination= await getMarkerDestinationIcon(event.destinationName,event.distance);
 
 //markers
     final markerInception = new Marker(
@@ -130,6 +132,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     final markerDestination = new Marker(
       markerId: MarkerId('destination'),
       position: event.routes[event.routes.length - 1],
+      icon:iconDestination,
       infoWindow: InfoWindow(
         title: event.destinationName,
         snippet: 'Distancia: $kms km',
