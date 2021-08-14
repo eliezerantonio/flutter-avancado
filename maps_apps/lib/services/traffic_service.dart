@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_apps/helpers/debouncer.dart';
+import 'package:maps_apps/models/reverse_query_response.dart';
 import 'package:maps_apps/models/search_response.dart';
 import 'package:maps_apps/models/traffic_response.dart';
 
@@ -15,6 +18,11 @@ class TrafficService {
   final _dio = new Dio();
 
   final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500));
+
+  final StreamController<SearchResponse> _sugerenciasStreamController =
+      new StreamController<SearchResponse>.broadcast();
+  Stream<SearchResponse> get sugerenciasStream =>
+      this._sugerenciasStreamController.stream;
   final _baseUrlDir = 'https://api.mapbox.com/directions/v5';
   final _baseUrlGeo = 'https://api.mapbox.com/geocoding/v5';
   final _apiKey =
@@ -51,10 +59,39 @@ class TrafficService {
         'proximity': '${proximity.longitude},${proximity.latitude}',
         'language': 'pt',
       });
+      // getSugestionsForQuery(search, proximity);
       final searchResponse = searchResponseFromJson(resp.data);
       return searchResponse;
     } catch (e) {
       return SearchResponse(features: []);
     }
+  }
+
+  void getSugestionsForQuery(String search, LatLng proximity) {
+    debouncer.value = '';
+    debouncer.onValue = (value) async {
+      final results = await this.getResultForQuery(search, proximity);
+      this._sugerenciasStreamController.add(results);
+    };
+
+    final timer = Timer.periodic(Duration(milliseconds: 200), (_) {
+      debouncer.value = search;
+    });
+
+    Future.delayed(Duration(milliseconds: 201)).then((_) => timer.cancel());
+  }
+
+  Future<ReverseQueryResponse> getCoordernadasInfo(LatLng destinoCoords) async {
+    final url =
+        '${this._baseUrlGeo}/mapbox.places/${destinoCoords.longitude},${destinoCoords.latitude}.json';
+
+    final resp = await this._dio.get(url, queryParameters: {
+      'access_token': this._apiKey,
+      'language': 'es',
+    });
+
+    final data = reverseQueryResponseFromJson(resp.data);
+
+    return data;
   }
 }

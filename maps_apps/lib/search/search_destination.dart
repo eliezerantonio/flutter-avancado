@@ -54,7 +54,6 @@ class SearchDestination extends SearchDelegate<SearchResult> {
             },
           ),
           ...this.history.map((x) {
-            print(x.nameDestination);
             ListTile(
               leading: Icon(Icons.history),
               title: Text(x.nameDestination),
