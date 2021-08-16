@@ -65,13 +65,7 @@ class _UsersPageState extends State<UsersPage> {
         ],
       ),
       body: SmartRefresher(
-        controller: _refreshController,
-        enablePullDown: true,
-        onRefresh: _cargarusers,
-        header: WaterDropHeader(
-          complete: Icon(Icons.check, color: Colors.blue[400]),
-          waterDropColor: Colors.blue[400],
-        ),
+       
         child: _listViewusers(),
       ),
     );
