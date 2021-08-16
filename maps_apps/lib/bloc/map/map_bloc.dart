@@ -32,7 +32,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     if (!state.listMap) {
       this._mapController = controller;
 
-      _mapController.setMapStyle(jsonEncode(uberMapTheme));
+      // _mapController.setMapStyle(jsonEncode(uberMapTheme));
       add(OnListMap());
     }
   }
