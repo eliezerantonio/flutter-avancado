@@ -10,7 +10,7 @@ class ChatService with ChangeNotifier {
   User userTo = User();
 
   Future<List<Message>> getMessagea(String userID) async {
-    final response = await http.get('${Environment.apiUrl}/messages/$userID',
+    final response = await http.get(Uri.parse('${Environment.apiUrl}/messages/$userID'),
         headers: {
           'Content-Type': 'application/json',
           'x-token': await AuthService.getToken()

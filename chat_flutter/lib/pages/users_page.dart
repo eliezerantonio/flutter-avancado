@@ -65,7 +65,7 @@ class _UsersPageState extends State<UsersPage> {
         ],
       ),
       body: SmartRefresher(
-       
+        controller: _refreshController,
         child: _listViewusers(),
       ),
     );
