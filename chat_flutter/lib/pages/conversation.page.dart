@@ -8,12 +8,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class UsersPage extends StatefulWidget {
+class ConversationPage extends StatefulWidget {
   @override
-  _UsersPageState createState() => _UsersPageState();
+  _ConversationPageState createState() => _ConversationPageState();
 }
 
-class _UsersPageState extends State<UsersPage> {
+class _ConversationPageState extends State<ConversationPage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -66,7 +66,7 @@ class _UsersPageState extends State<UsersPage> {
                     ),
                   ),
                   Text(
-                    "Chat",
+                    "Conversas",
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                   Container(

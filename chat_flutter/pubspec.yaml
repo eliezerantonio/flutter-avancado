@@ -21,18 +21,17 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.4
+  flashy_tab_bar2: ^0.0.3
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.4
-  pull_to_refresh: ^2.0.0
-  provider: ^6.0.2
-  http: ^0.13.4
   flutter_secure_storage: ^5.0.2
+  font_awesome_flutter: ^9.2.0
+  http: ^0.13.4
+  provider: ^6.0.2
+  pull_to_refresh: ^2.0.0
   socket_io_client: ^1.0.2
-  
+  water_drop_nav_bar: ^2.1.0+4
 
 dev_dependencies:
   flutter_test:
@@ -40,7 +39,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is
@@ -52,13 +50,10 @@ flutter:
   assets:
     - assets/
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Logo(title: "Messenger"),
+                Logo(title: "Chat"),
                 _Form(),
                 Labels(
                   createAccount: "Nao tem uma conta?",
@@ -82,7 +82,7 @@ class __FormState extends State<_Form> {
 
                     if (loginOk) {
                       socketService.connect();
-                      Navigator.pushReplacementNamed(context, "users");
+                      Navigator.pushReplacementNamed(context, "home");
                     } else {
                       //   mostrar alerta
                       showAlert(
