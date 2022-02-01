@@ -94,16 +94,52 @@ class _ConversationPageState extends State<ConversationPage> {
                     topRight: Radius.circular(25)),
                 color: Colors.white,
               ),
-              child: ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (_, index) => _userListTile(users[index]),
-                separatorBuilder: (_, index) => Divider(),
-                itemCount: users.length,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: usersHorizontal(),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    flex: 6,
+                    child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (_, index) => _userListTile(users[index]),
+                      separatorBuilder: (_, index) => Divider(),
+                      itemCount: users.length,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  ListView usersHorizontal() {
+    return ListView.builder(
+      reverse: true,
+      scrollDirection: Axis.horizontal,
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (_, index) => Container(
+        margin: EdgeInsets.all(7),
+        child: GestureDetector(
+          onTap: () {
+            final chatService = context.read<ChatService>();
+            chatService.userTo = users[index];
+
+            Navigator.pushNamed(context, "chat");
+          },
+          child: CircleAvatar(
+              child: Text(users[index].name.substring(0, 2)),
+              backgroundColor: Colors.blue[100]),
+        ),
+      ),
+      itemCount: users.length,
     );
   }
 

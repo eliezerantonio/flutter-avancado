@@ -41,7 +41,7 @@ class ChatMessage extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         decoration: BoxDecoration(
-            color: Color(0xff4D9EF6), borderRadius: BorderRadius.circular(20)),
+            color: Color(0xff060a37), borderRadius: BorderRadius.circular(20)),
       ),
     );
   }
