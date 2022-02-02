@@ -1,6 +1,5 @@
 import 'package:chat_flutter/pages/home_page.dart';
 import 'package:chat_flutter/pages/login_page.dart';
-import 'package:chat_flutter/pages/users_page.dart';
 import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/services/push_notification_provider.dart';
 import 'package:chat_flutter/services/socket_service.dart';

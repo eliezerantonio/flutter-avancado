@@ -3,6 +3,7 @@ import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/services/chat_service.dart';
 import 'package:chat_flutter/services/socket_service.dart';
 import 'package:chat_flutter/services/users_service.dart';
+import 'package:chat_flutter/widegts/search_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -17,92 +18,133 @@ class _UsersPageState extends State<UsersPage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final userService = UsersService();
-
-  List<User> users = [];
-
-  @override
-  void initState() {
-    super.initState();
-    this._cargarusers();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final authService = context.watch<AuthService>();
-    final socketService = context.watch<SocketService>();
-    final user = authService.user;
-    return Scaffold(
-      body: SmartRefresher(
-        controller: _refreshController,
-        enablePullDown: true,
-        onRefresh: _cargarusers,
-        child: SafeArea(child: _listViewusers()),
-      ),
-    );
-  }
+    final userService = context.watch<UsersService>();
 
-  Widget _listViewusers() {
-    return Container(
-      color: Color(0xff060a37),
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 35,
-                    height: 35,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: FaIcon(
-                      FontAwesomeIcons.facebookMessenger,
-                      color: Colors.white,
+    final filteresUser = userService.filteredUsers;
+    return Scaffold(
+      body: Consumer<UsersService>(
+        builder: (_, userService, __) {
+          return SmartRefresher(
+            controller: _refreshController,
+            enablePullDown: true,
+            onRefresh: _cargarusers,
+            child: SafeArea(
+              child: Container(
+                color: Color(0xff060a37),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 35,
+                              height: 35,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: FaIcon(
+                                FontAwesomeIcons.facebookMessenger,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              "Conversas",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                            Consumer<UsersService>(
+                              builder: (_, userService, __) {
+                                if (userService.search.isEmpty) {
+                                  return Container(
+                                      width: 35,
+                                      height: 35,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: IconButton(
+                                        icon: FaIcon(
+                                          FontAwesomeIcons.search,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () async {
+                                          final search =
+                                              await showDialog<String>(
+                                                  context: context,
+                                                  builder: (_) => SearchDialog(
+                                                      userService.search));
+                                          if (search != null) {
+                                            userService.search = search;
+                                          }
+                                        },
+                                      ));
+                                } else {
+                                  return Container(
+                                    width: 35,
+                                    height: 35,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        userService.search = '';
+                                      },
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Chat",
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                  Container(
-                    width: 35,
-                    height: 35,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: FaIcon(
-                      FontAwesomeIcons.search,
-                      color: Colors.white,
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25)),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                itemBuilder: (_, index) =>
+                                    _userListTile(filteresUser[index]),
+                                separatorBuilder: (_, index) => Divider(),
+                                itemCount: filteresUser.length,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25)),
-                color: Colors.white,
-              ),
-              child: ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (_, index) => _userListTile(users[index]),
-                separatorBuilder: (_, index) => Divider(),
-                itemCount: users.length,
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -131,7 +173,7 @@ class _UsersPageState extends State<UsersPage> {
   }
 
   void _cargarusers() async {
-    this.users = await userService.getUsers();
+    context.read<UsersService>().getUsers();
 
     setState(() {});
     _refreshController.refreshCompleted();

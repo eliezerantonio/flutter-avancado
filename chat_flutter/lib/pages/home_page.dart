@@ -1,4 +1,3 @@
-import 'package:chat_flutter/pages/conversation.page.dart';
 import 'package:chat_flutter/pages/users_page.dart';
 import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/services/socket_service.dart';
@@ -23,7 +22,6 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> tabItems = [
     UsersPage(),
-    ConversationPage(),
     SettingsPage(),
   ];
 
@@ -80,10 +78,6 @@ class _HomePageState extends State<HomePage> {
           _selectedIndex = index;
         }),
         items: [
-          FlashyTabBarItem(
-            icon: Icon(FontAwesomeIcons.users),
-            title: Text('Pessoas'),
-          ),
           FlashyTabBarItem(
             icon: Icon(FontAwesomeIcons.facebookMessenger),
             title: Text('Conversas'),

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'services/auth_service.dart';
+import 'services/users_service.dart';
 
 PushNotificationProvider pushNotificationProvider = PushNotificationProvider();
 
@@ -47,6 +48,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => ChatService()),
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (_) => UsersService(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

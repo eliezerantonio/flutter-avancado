@@ -29,6 +29,21 @@ const getMessages = async (req, res = response) => {
   } catch (error) {}
 };
 
+const deleteMessage = async (req, res = response) => {
+ 
+  try {
+   
+    
+   
+  await Messages.findByIdAndRemove({ _id: req.params.id ,});
+  res.json({ msg: "Sms eliminada" });
+  
+ } catch (error) {
+   
+ }
+}
+
 module.exports = {
   getMessages,
+  deleteMessage
 };
