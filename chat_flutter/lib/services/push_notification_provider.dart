@@ -95,7 +95,7 @@ class PushNotificationProvider {
         headers: <String, String>{
          'Content-Type': 'application/json',
           'Authorization':
-              'key=AAAADJhYDLo:APA91bFEQJsORxQcfpVd_bgRWYpQBAkk4qYqmCvl56Vb_1Xq1GTqGAG6QG3plP4f7NFcXRG4BZbhDW0Jr3jPfbtE3m8qpRGdq0xT3js1pPsE2rJ5TKrG_Vt2bbekEu0xewnUzW5vCa13'
+              'key=your key'
         },
         body: jsonEncode(
             <String, dynamic> {
