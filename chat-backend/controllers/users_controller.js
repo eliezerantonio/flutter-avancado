@@ -24,7 +24,41 @@ const getUsers = async (req, res = response) => {
     console.log(error);
   }
 };
+const updateNotificationToken = async (req, res = response) => {
+  const { id, token } = req.body;
+ console.log(id, token)
+  try {
+    //revisar id
+
+    let user = await User.findById(id );
+    //reviar se o projecto existe
+
+    if (!user) {
+      return res.status(404).json({ mag: "user n econtrado" });
+    }
+
+    //atualizar
+    user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { notification_token: token } },
+      { new: true }
+    );
+
+    // gerar jwt
+    res.json({
+      ok: true,
+      user,
+    });
+  } catch (error) { 
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Contacte o administrador",
+    });
+  }
+};
 
 module.exports = {
   getUsers,
+  updateNotificationToken
 };

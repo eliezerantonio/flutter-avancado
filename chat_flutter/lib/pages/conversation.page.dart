@@ -32,6 +32,7 @@ class _ConversationPageState extends State<ConversationPage> {
     final authService = context.watch<AuthService>();
     final socketService = context.watch<SocketService>();
     final user = authService.user;
+
     return Scaffold(
       body: SmartRefresher(
         controller: _refreshController,
@@ -135,6 +136,7 @@ class _ConversationPageState extends State<ConversationPage> {
             Navigator.pushNamed(context, "chat");
           },
           child: CircleAvatar(
+              radius: 27,
               child: Text(users[index].name.substring(0, 2)),
               backgroundColor: Colors.blue[100]),
         ),

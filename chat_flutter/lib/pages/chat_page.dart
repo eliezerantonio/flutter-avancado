@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:chat_flutter/main.dart';
 import 'package:chat_flutter/models/message.dart';
+import 'package:chat_flutter/models/user.dart';
+import 'package:chat_flutter/services/push_notification_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +24,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _focusNode = new FocusNode();
   bool _estaEscrevendo = false;
   AuthService authService;
-
+  PushNotificationProvider pushNotificationProvider =
+      new PushNotificationProvider();
   ChatService chatService;
   SocketService socketService;
   List<ChatMessage> _messages = [];
@@ -70,14 +74,14 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
           Container(
             color: Colors.white,
             height: 50,
-            child: _inputChat(),
+            child: _inputChat(userTo),
           ),
         ],
       )),
     );
   }
 
-  Widget _inputChat() {
+  Widget _inputChat(User userTo) {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -86,7 +90,9 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
             Flexible(
               child: TextField(
                   controller: _textController,
-                  onSubmitted: _handleSubmit,
+                  onSubmitted: (text) {
+                    _handleSubmit(text, userTo);
+                  },
                   onChanged: (String texto) {
                     if (texto.trim().length > 0) {
                       setState(() {
@@ -110,7 +116,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
               child: Platform.isIOS
                   ? CupertinoButton(
                       onPressed: _estaEscrevendo
-                          ? () => _handleSubmit(_textController.text.trim())
+                          ? () =>
+                              _handleSubmit(_textController.text.trim(), userTo)
                           : null,
                       child: Text("Enviar"),
                     )
@@ -124,8 +131,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                           icon: Icon(Icons.send),
                           onPressed: _estaEscrevendo
                               ? () => _handleSubmit(
-                                    _textController.text.trim(),
-                                  )
+                                  _textController.text.trim(), userTo)
                               : null,
                         ),
                       ),
@@ -137,7 +143,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     );
   }
 
-  _handleSubmit(String text) {
+  _handleSubmit(String text, User userTo) {
     if (text.isEmpty) return;
 
     _textController.clear();
@@ -147,6 +153,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     final newMessage = ChatMessage(
       uid: authService.user.uid,
       texto: text,
+      
       animationController: AnimationController(
         vsync: this,
         duration: Duration(
@@ -166,6 +173,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       'to': this.chatService.userTo.uid,
       'message': text
     });
+
+    sendNotification(userTo.notificationToken);
   }
 
   @override
@@ -207,15 +216,23 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     List<Message> messages = await this.chatService.getMessagea(userID);
 
     final history = messages.map((m) => new ChatMessage(
-          animationController: new AnimationController(
-            vsync: this,
-            duration: Duration(milliseconds: 0),
-          )..forward(),
-          texto: m.message,
-          uid: m.from,
+        animationController: new AnimationController(
+          vsync: this,
+          duration: Duration(milliseconds: 0),
+        )..forward(),
+        texto: m.message,
+        uid: m.from,
         ));
     setState(() {
       _messages.insertAll(0, history);
     });
   }
+}
+
+void sendNotification(String token) {
+  print(token);
+  Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
+
+  pushNotificationProvider.sendMessage(
+      token, data, 'Mensagem', 'Recebeu uma nova mensagem');
 }

@@ -11,7 +11,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
     final user = authService.user;
-
+    final socketService = context.watch<SocketService>();
     return SafeArea(
       child: Container(
         color: Color(0xff060a37),
@@ -22,6 +22,7 @@ class SettingsPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         width: 35,
@@ -35,12 +36,28 @@ class SettingsPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                      ),
                       Text(
                         "Definições",
                         style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          AuthService.deleteToken();
+                          socketService.disconnect();
+                          Navigator.pushReplacementNamed(context, "login");
+                        },
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Icon(
+                            Icons.exit_to_app,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),

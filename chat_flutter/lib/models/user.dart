@@ -12,6 +12,7 @@ class User {
   User({
     this.online,
     this.name,
+    this.notificationToken,
     this.email,
     this.uid,
   });
@@ -19,11 +20,13 @@ class User {
   bool online;
   String name;
   String email;
+  String notificationToken;
   String uid;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         online: json["online"],
         name: json["name"],
+        notificationToken: json['notification_token'],
         email: json["email"],
         uid: json["uid"],
       );
@@ -31,6 +34,7 @@ class User {
   Map<String, dynamic> toJson() => {
         "online": online,
         "name": name,
+        "notification_token": notificationToken,
         "email": email,
         "uid": uid,
       };

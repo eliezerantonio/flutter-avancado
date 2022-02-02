@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:chat_flutter/models/register_response.dart';
 import 'package:chat_flutter/models/user.dart';
+import 'package:chat_flutter/services/push_notification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,9 @@ class AuthService with ChangeNotifier {
   bool _loading = false;
 
   final _storage = new FlutterSecureStorage();
+
+  PushNotificationProvider pushNotificationProvider =
+      PushNotificationProvider();
   get loading => this._loading;
 
   set loading(value) {
@@ -26,7 +30,7 @@ class AuthService with ChangeNotifier {
   static Future<String> getToken() async {
     final _storage = new FlutterSecureStorage();
     final token = await _storage.read(key: "token");
-  
+
     return token;
   }
 
@@ -55,11 +59,13 @@ class AuthService with ChangeNotifier {
         this.user = loginResponse.user;
 
         await this._saveToken(loginResponse.token);
+        pushNotificationProvider.saveToken(user.uid);
         return true;
       } else {
         return false;
       }
-    } catch (e) {} finally {
+    } catch (e) {
+    } finally {
       loading = false;
     }
   }
@@ -89,21 +95,23 @@ class AuthService with ChangeNotifier {
         this.user = registerResponse.user;
 
         await this._saveToken(registerResponse.token);
+        pushNotificationProvider.saveToken(user.uid);
         return true;
       } else {
         final respBody = jsonDecode(response.body);
         print(respBody);
         return respBody["msg"];
       }
-    } catch (e) {} finally {
+    } catch (e) {
+    } finally {
       loading = false;
     }
   }
 
   Future<bool> isLoggedIn() async {
     final token = await this._storage.read(key: "token");
-    final response =
-        await http.get(Uri.parse('${Environment.apiUrl}/login/renew'), headers: {
+    final response = await http
+        .get(Uri.parse('${Environment.apiUrl}/login/renew'), headers: {
       'Content-Type': 'application/json',
       'x-token': token,
     });

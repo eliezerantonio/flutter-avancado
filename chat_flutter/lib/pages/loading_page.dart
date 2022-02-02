@@ -2,6 +2,7 @@ import 'package:chat_flutter/pages/home_page.dart';
 import 'package:chat_flutter/pages/login_page.dart';
 import 'package:chat_flutter/pages/users_page.dart';
 import 'package:chat_flutter/services/auth_service.dart';
+import 'package:chat_flutter/services/push_notification_provider.dart';
 import 'package:chat_flutter/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,14 +52,16 @@ class LoadingPage extends StatelessWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
     final socketService = context.watch<SocketService>();
     final auth = await authService.isLoggedIn();
-
+  PushNotificationProvider pushNotificationProvider =
+      PushNotificationProvider();
     if (auth) {
       socketService.connect();
+        pushNotificationProvider.saveToken(authService.user.uid);
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => HomePage(),
-          transitionDuration: Duration(milliseconds: 300),
+          transitionDuration: Duration(milliseconds: 0),
         ),
       );
     } else {

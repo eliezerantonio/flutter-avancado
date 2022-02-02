@@ -74,7 +74,6 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: FlashyTabBar(
         animationCurve: Curves.linear,
-        iconSize: 25,
         selectedIndex: _selectedIndex,
         showElevation: false, // use this to remove appBar's elevation
         onItemSelected: (index) => setState(() {

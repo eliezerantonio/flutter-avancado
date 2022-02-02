@@ -31,34 +31,59 @@ class ChatMessage extends StatelessWidget {
   }
 
   Widget _myMessage() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.only(right: 5, bottom: 5, left: 50),
-        child: Text(
-          this.texto,
-          style: TextStyle(color: Colors.white),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.only(right: 5, bottom: 5, left: 50),
+            child: Column(
+              children: [
+                Text(
+                  this.texto,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(
+                color: Color(0xff060a37),
+                borderRadius: BorderRadius.circular(20)),
+          ),
         ),
-        decoration: BoxDecoration(
-            color: Color(0xff060a37), borderRadius: BorderRadius.circular(20)),
-      ),
+        SizedBox(height: 4),
+        // Text(
+        //     createdAt?.toString().substring(0, 16) ??
+        //         DateTime.now().toString().substring(0, 16),
+        //     style: TextStyle(color: Colors.grey, fontSize: 10))
+      ],
     );
   }
 
   Widget _noMyMesssage() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.only(left: 5, bottom: 5, right: 50),
-        child: Text(
-          this.texto,
-          style: TextStyle(color: Colors.black87),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.only(left: 5, bottom: 5, right: 50),
+            child: Text(
+              this.texto,
+              style: TextStyle(color: Colors.black87),
+            ),
+            decoration: BoxDecoration(
+                color: Color(0xffE4E5E8),
+                borderRadius: BorderRadius.circular(20)),
+          ),
         ),
-        decoration: BoxDecoration(
-            color: Color(0xffE4E5E8), borderRadius: BorderRadius.circular(20)),
-      ),
+        SizedBox(height: 4),
+        // Text(createdAt.toString().substring(0, 16),
+        //     style: TextStyle(color: Colors.grey, fontSize: 10))
+      ],
     );
   }
 }
